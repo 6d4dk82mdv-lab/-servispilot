@@ -117,7 +117,26 @@ function loadDB(){
 let db=loadDB();try{const b=localStorage.getItem(KEY+'_backup');if(db.customers.length+db.cars.length+db.jobs.length===0&&b){const bx=normalizeDB(JSON.parse(b));if(bx)db=bx}}catch(e){}
 let filter='__open',calendarMonth=new Date(new Date().getFullYear(),new Date().getMonth(),1),selectedCalendarDate=todaySafe(),q=x=>document.getElementById(x);
 function todaySafe(){return new Date().toISOString().slice(0,10)}
-function persist(){try{const data=JSON.stringify(db);localStorage.setItem(KEY,data);localStorage.setItem(KEY+'_backup',data);render();return true}catch(e){alert('Data se nepodařilo uložit do telefonu. Zkontroluj volné místo nebo soukromý režim Safari.');console.error(e);return false}}
+function persist(){
+  try{
+    const data=JSON.stringify(db);
+    localStorage.setItem(KEY,data);
+    localStorage.setItem(KEY+'_backup',data);
+    render();
+    return true;
+  }catch(e){
+    try{
+      sessionStorage.setItem(KEY,data);
+      sessionStorage.setItem(KEY+'_backup',data);
+      render();
+      return true;
+    }catch(e2){
+      console.error('DB save failed',e,e2);
+      alert('Data se nepodařilo uložit. Zkus prosím obnovit stránku nebo vypnout soukromý režim Safari.');
+      return false;
+    }
+  }
+}
 function today(){return todaySafe()}
 function show(id){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));q(id).classList.add('active');render()}
 function resetForm(){
