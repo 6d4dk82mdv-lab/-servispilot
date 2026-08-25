@@ -1,0 +1,488 @@
+<!doctype html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0f172a"><title>ServisPilot V4</title><style>
+*{box-sizing:border-box}body{margin:0;background:#f4f6f8;color:#0f172a;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}header{height:62px;background:#0f172a;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 16px;position:sticky;top:0;z-index:5}.logo{font-size:20px;font-weight:850}.wrap{max-width:1100px;margin:auto;padding:14px 14px 90px}.view{display:none}.view.active{display:block}.search{width:100%;padding:14px 16px;border:1px solid #d7dce3;border-radius:15px;font-size:16px;background:#fff;margin-bottom:12px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.card{background:#fff;border:1px solid #e2e6eb;border-radius:17px;padding:16px;box-shadow:0 2px 8px #00000008}.muted{color:#64748b;font-size:13px}.stat{font-size:30px;font-weight:850;margin-top:5px}.statcard{text-align:left;cursor:pointer;border:1px solid #e2e6eb}.statcard:active{transform:scale(.99)}h2{font-size:21px;margin:5px 0 14px}h3{margin:0 0 8px}button{font:inherit;font-weight:750;border:0;border-radius:12px;padding:11px 14px;background:#e2e8f0;color:#0f172a}button.primary{background:#2563eb;color:#fff}.quick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.quick button{padding:17px;text-align:left;background:#fff;border:1px solid #e2e6eb}.job{padding:14px 0;border-bottom:1px solid #edf0f3;display:flex;justify-content:space-between;gap:10px;align-items:center}.job:last-child{border:0}.pill{display:inline-block;font-size:11px;padding:6px 9px;border-radius:99px;background:#dbeafe;color:#1d4ed8;font-weight:800;white-space:nowrap}.pill.green{background:#dcfce7;color:#166534}.pill.yellow{background:#fef3c7;color:#92400e}.pill.gray{background:#e2e8f0;color:#475569}.bottom{position:fixed;bottom:0;left:0;right:0;height:74px;background:#fff;border-top:1px solid #e2e8f0;display:grid;grid-template-columns:repeat(5,1fr);z-index:20;padding-bottom:env(safe-area-inset-bottom)}.bottom button{border-radius:0;background:#fff;color:#475569;font-size:11px;padding:6px 2px}.bottom b{display:block;font-size:20px}.fab{position:fixed;right:18px;bottom:90px;border-radius:50%;width:58px;height:58px;background:#2563eb;color:#fff;font-size:28px;z-index:19;box-shadow:0 5px 16px #0003}.toolbar{display:flex;gap:8px;margin-bottom:12px}.toolbar button{flex:1}input,select,textarea{width:100%;margin-top:5px;padding:12px;border:1px solid #cbd5e1;border-radius:11px;font:inherit;background:#fff}label{font-size:13px;font-weight:750;display:block;margin:9px 0}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.modal{display:none;position:fixed;inset:0;background:#0008;z-index:50;align-items:flex-end}.modal.show{display:flex}.sheet{background:#fff;width:100%;max-height:94vh;border-radius:22px 22px 0 0;padding:18px;overflow:auto}.actions{display:flex;gap:8px;margin-top:15px}.actions button{flex:1}.preview{background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:12px;margin:8px 0 12px}.photoBtns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.photoBtn{display:block;text-align:center;background:#e2e8f0;border-radius:12px;padding:12px;font-weight:800;cursor:pointer}.photoBtn input{display:none}.fileInput{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}.cameraSheet{padding-bottom:calc(18px + env(safe-area-inset-bottom))}.cameraSheet video{width:100%;max-height:62vh;background:#000;border-radius:16px;object-fit:cover;margin-top:8px}.ocrhint{font-size:12px;color:#64748b;margin-top:8px}.statusbar{display:flex;gap:6px;overflow:auto;padding-bottom:8px}.statusbar button{white-space:nowrap}.statusbar .active{background:#2563eb;color:#fff}.calhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.calhead button{min-width:44px}.calmonth{font-size:20px;font-weight:850;text-transform:capitalize}.calgrid{display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #e2e8f0;border-radius:14px;overflow:hidden}.caldow{padding:8px 4px;text-align:center;background:#f8fafc;color:#64748b;font-size:11px;font-weight:800;border-right:1px solid #edf0f3}.calcell{min-height:88px;padding:6px;border-right:1px solid #edf0f3;border-top:1px solid #edf0f3;background:#fff}.calcell.mutedday{background:#f8fafc;color:#94a3b8}.calnum{font-size:13px;font-weight:800;width:27px;height:27px;display:flex;align-items:center;justify-content:center;border-radius:50%;margin-bottom:3px}.calnum.today{background:#2563eb;color:#fff}.caljob{font-size:10px;line-height:1.2;background:#dbeafe;color:#1e40af;border-radius:6px;padding:4px;margin-top:3px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.caljob.green{background:#dcfce7;color:#166534}.caljob.yellow{background:#fef3c7;color:#92400e}@media(max-width:650px){.calcell{min-height:76px;padding:4px}.caljob{font-size:9px}.calmonth{font-size:18px}}.detail{display:grid;grid-template-columns:1fr 1fr;gap:10px}.big{font-size:21px;font-weight:850}table{width:100%;border-collapse:collapse}td,th{padding:10px;text-align:left;border-bottom:1px solid #edf0f3;font-size:13px}@media(max-width:650px){.cards{grid-template-columns:1fr 1fr}.detail{grid-template-columns:1fr 1fr}}@media(min-width:651px){.bottom{display:none}.fab{bottom:25px}.wrap{padding-bottom:30px}}
+
+.maintenancePreview{margin:10px 0;padding:14px;border:1px solid #d8dee8;border-radius:16px;background:#f7f9fc}.maintenancePreview h4{margin:0 0 8px}.maintrow{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid #e3e7ee}.maintrow:last-child{border-bottom:0}.due{color:#b42318;font-weight:700}.soon{color:#9a6700;font-weight:700}.ok{color:#18794e;font-weight:700}.maintnote{font-size:13px;color:#64748b;margin-top:8px}
+ .serviceQuick{margin:8px 0 10px}.quickBtns{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}.quickBtns button{padding:8px 10px;border:1px solid #d8dee8;border-radius:12px;background:#f7f9fc;font-weight:700;font-size:13px}
+</style>
+<style>
+/* ServisPilot V4 calendar */
+.calwrap{background:#fff;border:1px solid #e2e6eb;border-radius:18px;overflow:hidden}
+.calhead{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid #edf0f3}
+.calhead button{width:42px;height:42px;border-radius:50%;font-size:24px;padding:0}
+.calmonth{text-transform:capitalize;font-size:20px;font-weight:850}
+.calgrid{display:grid;grid-template-columns:repeat(7,1fr);background:#edf0f3;gap:1px}
+.calgrid>*{min-width:0}
+.caldow{background:#f8fafc;padding:9px 5px;text-align:center;color:#64748b;font-size:12px;font-weight:800}
+.calcell{background:#fff;min-height:86px;padding:7px 5px;cursor:pointer}
+.calcell:active{background:#f1f5f9}
+.calnum{font-weight:800;font-size:14px;margin-bottom:5px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:50%}
+.calnum.today{background:#2563eb;color:#fff}
+.mutedday .calnum{color:#b5beca}
+.caljob{font-size:10px;line-height:1.2;padding:4px 5px;border-radius:6px;background:#dbeafe;color:#1d4ed8;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.caljob.green{background:#dcfce7;color:#166534}.caljob.yellow{background:#fef3c7;color:#92400e}
+.dayagenda{padding:14px;border-top:1px solid #edf0f3}.dayagenda h3{margin:0 0 8px}.calcontrols{display:flex;align-items:center;gap:8px}.calcontrols .todaybtn{width:auto;padding:9px 12px;border-radius:12px;font-size:13px}.calselected{box-shadow:inset 0 0 0 2px #2563eb}.calmore{font-size:10px;color:#64748b;margin-top:3px}.agenda-date{font-size:14px;color:#64748b;margin-bottom:8px;text-transform:capitalize}.agenda-empty{padding:18px 4px;color:#64748b}.agenda-item{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #edf0f3}.agenda-time{font-weight:850;min-width:48px}.agenda-main{flex:1}
+@media(max-width:600px){.calcell{min-height:72px}.caljob{font-size:9px;padding:3px}.calnum{font-size:13px;width:25px;height:25px}.caldow{font-size:11px}}
+</style>
+<style>
+/* V11 workshop workflow */
+.lookupHint{font-size:12px;color:#2563eb;margin-top:5px}.carparts{display:grid;gap:8px}.partline{display:flex;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px solid #edf0f3}.partline:last-child{border-bottom:0}.tag{display:inline-block;padding:4px 8px;border-radius:999px;background:#eef2ff;color:#3730a3;font-size:11px;font-weight:800}.sectionActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.sectionActions button{flex:1;min-width:130px}.mini{font-size:12px}.stockqty{font-weight:850}.formTitle{font-size:18px;font-weight:850;margin:4px 0 10px}.checkrow{display:grid;grid-template-columns:1fr 90px 120px;gap:7px;align-items:center;padding:8px 0;border-bottom:1px solid #edf0f3}.printBox{border:1px solid #111;padding:12px;margin-top:12px}.printGrid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid #111}.printCell{padding:8px;border-right:1px solid #111;border-bottom:1px solid #111;min-height:38px}.printWide{grid-column:1/-1}.printLines{min-height:110px}.printService{min-height:140px}.signature{min-height:55px}.stockCard{cursor:pointer}.stockCard:active{transform:scale(.99)}
+@media(max-width:600px){.checkrow{grid-template-columns:1fr 75px 95px}}
+</style></head><body><header><div class="logo" onclick="show('customers')" style="cursor:pointer">🔧 ServisPilot</div><div id="clock"></div></header><div class="wrap"><input id="search" class="search" placeholder="🔎 Jméno zákazníka nebo SPZ…" oninput="searchAll()">
+<section id="home" class="view active"><div class="cards"><button class="card statcard" onclick="showJobsFilter('today')"><div class="muted">Dnes</div><div id="nToday" class="stat">0</div></button><button class="card statcard" onclick="showJobsFilter('open')"><div class="muted">Rozpracované</div><div id="nOpen" class="stat">0</div></button><button class="card statcard" onclick="showJobsFilter('approve')"><div class="muted">Čeká na schválení</div><div id="nApprove" class="stat">0</div></button><button class="card statcard" onclick="show('customers')"><div class="muted">Vozidla</div><div id="nCars" class="stat">0</div></button></div><div class="quick"><button onclick="openJob()"><b>📷 Příjem vozidla</b><br><span class="muted">TP → vozidlo → zakázka</span></button><button onclick="show('calendar')"><b>📅 Kalendář</b><br><span class="muted">Plán práce</span></button><button onclick="show('customers')"><b>🚗 Vozidla</b><br><span class="muted">Historie oprav</span></button><button onclick="show('jobs')"><b>🔧 Zakázky</b><br><span class="muted">Stavy zakázek</span></button></div><div class="card"><h2>Dnešní práce</h2><div id="today"></div></div><div class="card" style="margin-top:12px"><h2>💾 Záloha dat</h2><div class="actions"><button onclick="exportDB()">Stáhnout zálohu</button><button onclick="document.getElementById('importFile').click()">Obnovit zálohu</button></div><input id="importFile" type="file" accept="application/json" style="display:none" onchange="importDB(this)"></div><div id="results" class="card" style="display:none;margin-top:12px"><h2>Hledání</h2><div id="resultsList"></div></div></section>
+<section id="customers" class="view"><div class="toolbar"><button class="primary" onclick="openCustomerModal()">＋ Nový zákazník</button><button onclick="openJob()">＋ Nová zakázka</button></div><div class="card"><h2>👥 Zákazníci a vozidla</h2><input id="customerSearch" class="search" placeholder="Hledat podle jména nebo SPZ…" oninput="renderCustomers()"><div id="customersList"></div></div></section>
+<section id="jobs" class="view"><div class="toolbar"><button class="primary" onclick="openJob()">＋ Nová zakázka</button></div><div class="card"><h2>🔧 Aktuálně na dílně</h2><div class="statusbar" id="filters"></div><div id="jobsList"></div></div></section>
+<section id="cars" class="view" style="display:none"></section>
+<section id="tech" class="view">
+<div class="card">
+<h2>⚙️ Technická data</h2>
+<div class="muted">Olejové náplně se vážou na <b>kód motoru</b>. Filtry se vážou na <b>značku, model a rok od–do</b>.</div>
+<div class="row">
+<label>Kód motoru<input id="techEngine" placeholder="např. CKFC"></label>
+<label>Značka<input id="techMake" placeholder="např. Škoda"></label>
+</div>
+<div class="row">
+<label>Model<input id="techModel" placeholder="např. Octavia"></label>
+<label>Rok od–do<input id="techYears" placeholder="2013–2020"></label>
+</div>
+<div class="row">
+<label>Motorový olej (l)<input id="techOil" type="number" step=".1" placeholder="4.6"></label>
+<label>Specifikace oleje<input id="techOilSpec" placeholder="VW 504 00 / 507 00"></label>
+</div>
+<div class="row">
+<label>DSG olej (l)<input id="techDsg" type="number" step=".1"></label>
+<label>Haldex olej (l)<input id="techHaldex" type="number" step=".1"></label>
+</div>
+<div class="row">
+<label>Olejový filtr<input id="techOilFilter"></label>
+<label>Vzduchový filtr<input id="techAirFilter"></label>
+</div>
+<div class="row">
+<label>Kabinový filtr<input id="techCabinFilter"></label>
+<label>Palivový filtr<input id="techFuelFilter"></label>
+</div>
+<div class="actions"><button class="primary" onclick="saveTechSpec()">Uložit technická data</button><button onclick="clearTechForm()">Vyčistit</button></div>
+</div>
+<div class="card" style="margin-top:12px"><h2>Databáze</h2><div id="techList"></div></div>
+</section>
+<section id="calendar" class="view">
+<div class="calwrap">
+  <div class="calhead">
+    <div class="calcontrols"><button class="todaybtn" onclick="goCalendarToday()">Dnes</button><button onclick="changeMonth(-1)">‹</button></div>
+    <div id="calMonth" class="calmonth"></div>
+    <button onclick="changeMonth(1)">›</button>
+  </div>
+  <div id="calendarGrid"></div>
+  <div id="dayAgenda" class="dayagenda"></div>
+</div>
+</section>
+<section id="stock" class="view"><div class="toolbar"><button class="primary" onclick="openStockForm()">＋ Naskladnit díl</button><button onclick="show('tech')">⚙️ Technická data</button></div><div class="card"><h2>📦 Sklad dílů</h2><input id="stockSearch" class="search" style="margin-bottom:8px" placeholder="Hledat díl, číslo, kategorii…" oninput="renderStock()"><div id="stockList"></div></div></section>
+<div class="bottom"><button onclick="show('customers')"><b>👥</b>Zákazníci</button><button onclick="show('calendar')"><b>📅</b>Kalendář</button><button onclick="show('stock')"><b>📦</b>Sklad</button><button onclick="showWorkshop()"><b>🔧</b>Dílna</button></div><button class="fab" onclick="openJob()">＋</button></div>
+<div id="modal" class="modal"><div class="sheet"><div style="display:flex;justify-content:space-between;align-items:center"><h2>📷 Příjem vozidla</h2><button onclick="closeModal()">✕</button></div><div class="preview"><b>Technický průkaz</b><br><span class="muted">Čtečku TP jsme zatím vypnuli. SPZ, VIN, značku, model, rok a kód motoru zadáš ručně.</span></div><h3>Vozidlo</h3><div class="row"><label>SPZ<input id="spz" list="spzList" autocomplete="off" oninput="lookupCarBySpz()"><datalist id="spzList"></datalist><div id="spzLookup" class="lookupHint"></div></label><label>VIN<input id="vin"></label></div><div class="row"><label>Značka<input id="make"></label><label>Model<input id="model"></label></div><div class="row"><label>Kód motoru<input id="engine" placeholder="např. CKFC" oninput="previewTechForJob()"></label><label>Výkon<input id="power"></label></div><div class="row"><label>Objem<input id="ccm"></label><label>Rok<input id="year" type="number"></label></div><div class="row"><label>Palivo<select id="fuel"><option>Nafta</option><option>Benzín</option><option>Hybrid</option><option>Elektro</option><option>LPG</option></select></label><label>KM<input id="km" type="number" oninput="previewMaintenance()" onblur="previewMaintenance()"></label></div><div id="maintenancePreview" class="maintenancePreview" style="display:none"></div><div id="techPreview" class="maintenancePreview" style="display:none"></div><h3>Zákazník</h3><div class="row"><label>Jméno<input id="customer"></label><label>Telefon<input id="phone"></label></div><label>E-mail<input id="email"></label><h3>Zakázka</h3><div class="serviceQuick"><span class="muted">Rychle přidat servis:</span><div class="quickBtns"><button type="button" onclick="addService('Motorový olej + olejový filtr')">🛢️ Olej</button><button type="button" onclick="addService('Vzduchový filtr')">🌬️ Vzduchový filtr</button><button type="button" onclick="addService('Kabinový / pylový filtr')">🌿 Kabinový filtr</button><button type="button" onclick="addService('Palivový filtr')">⛽ Palivový filtr</button><button type="button" onclick="addService('Kontrola brzd')">🛑 Brzdy</button><button type="button" onclick="addService('Brzdová kapalina')">🧴 Brzdovka</button><button type="button" onclick="addService('Klimatizace')">❄️ Klima</button><button type="button" onclick="addService('Svíčky')">🔥 Svíčky</button><button type="button" onclick="addService('DSG olej + filtr')">⚙️ DSG</button><button type="button" onclick="addService('Haldex olej + servis')">⚙️ Haldex</button></div></div><label>Požadavek<textarea id="request" rows="3" placeholder="Např. výměna rozvodů + kontrola brzd"></textarea></label><div class="row"><label>Datum<input id="date" type="date"></label><label>Čas<input id="time" type="time" value="08:00"></label></div><div class="row"><label>Délka (h)<input id="duration" type="number" value="2" min=".5" step=".5"></label><label>Mechanik<select id="mechanic"><option>Tomáš</option><option>Petr</option><option>Martin</option></select></label></div><label>Stav<select id="status"><option>Naplánováno</option><option>Přijato</option><option>Diagnostika</option><option>Čeká na schválení</option><option>Opravuje se</option><option>Hotovo</option><option>Předáno</option></select></label><label>Fotografie<input id="photos" type="file" accept="image/*" multiple></label><div class="actions"><button onclick="closeModal()">Zrušit</button><button class="primary" onclick="saveJob()">Uložit zakázku</button></div></div></div>
+<div id="carEditModal" class="modal"><div class="sheet"><div style="display:flex;justify-content:space-between;align-items:center"><h2>🚗 Upravit vozidlo</h2><button onclick="closeCarEdit()">✕</button></div><div id="carEditBody"></div></div></div>
+<div id="customerModal" class="modal"><div class="sheet"><div style="display:flex;justify-content:space-between;align-items:center"><h2 id="customerModalTitle">👤 Zákazník</h2><button onclick="closeCustomerModal()">✕</button></div><input type="hidden" id="customerIdEdit"><div class="row"><label>Jméno / název<input id="custNameEdit"></label><label>Telefon<input id="custPhoneEdit"></label></div><div class="row"><label>E-mail<input id="custEmailEdit"></label><label>IČO / DIČ<input id="custTaxEdit"></label></div><label>Daňový režim<select id="custVatEdit"><option value="false">Neplátce DPH</option><option value="true">Plátce DPH</option></select></label><div class="actions"><button onclick="closeCustomerModal()">Zrušit</button><button class="primary" onclick="saveCustomerModal()">Uložit zákazníka</button></div></div></div>
+<div id="customerCarModal" class="modal"><div class="sheet"><div style="display:flex;justify-content:space-between;align-items:center"><h2>🚗 Vozidlo zákazníka</h2><button onclick="closeCustomerCarModal()">✕</button></div><input type="hidden" id="customerCarId"><input type="hidden" id="customerCarCustomerId"><div class="row"><label>SPZ<input id="ccSpz"></label><label>VIN<input id="ccVin"></label></div><div class="row"><label>Značka<input id="ccMake"></label><label>Model<input id="ccModel"></label></div><div class="row"><label>Kód motoru<input id="ccEngine"></label><label>Rok<input id="ccYear" type="number"></label></div><div class="row"><label>Výkon<input id="ccPower"></label><label>Objem<input id="ccCcm"></label></div><div class="row"><label>Palivo<select id="ccFuel"><option>Nafta</option><option>Benzín</option><option>Hybrid</option><option>Elektro</option><option>LPG</option></select></label><label>KM<input id="ccKm" type="number"></label></div><div class="actions"><button onclick="closeCustomerCarModal()">Zrušit</button><button class="primary" onclick="saveCustomerCar()">Uložit vozidlo</button></div></div></div>
+<div id="stockModal" class="modal"><div class="sheet"><div style="display:flex;justify-content:space-between;align-items:center"><h2 id="stockModalTitle">📦 Skladový díl</h2><button onclick="closeStockModal()">✕</button></div><div class="row"><label>Název dílu<input id="stockName"></label><label>Číslo dílu<input id="stockPartNo"></label></div><div class="row"><label>Kategorie<input id="stockCategory" placeholder="Olej, filtr, brzdy…"></label><label>Množství<input id="stockQty" type="number" step="1" min="0"></label></div><div class="row"><label>Nákupní cena Kč<input id="stockBuy" type="number" step="0.01"></label><label>Prodejní cena Kč<input id="stockSell" type="number" step="0.01"></label></div><label>Poznámka<textarea id="stockNote" rows="2"></textarea></label><div class="actions"><button onclick="closeStockModal()">Zrušit</button><button class="primary" onclick="saveStockItem()">Uložit</button></div><div id="stockDeleteAction"></div></div></div>
+<div id="jobEditModal" class="modal"><div class="sheet"><div style="display:flex;justify-content:space-between;align-items:center"><h2>🔧 Upravit zakázku</h2><button onclick="closeJobEdit()">✕</button></div><input type="hidden" id="editJobId"><div class="row"><label>Datum<input id="editJobDate" type="date"></label><label>Čas<input id="editJobTime" type="time"></label></div><div class="row"><label>KM<input id="editJobKm" type="number"></label><label>Délka h<input id="editJobDuration" type="number" step=".5"></label></div><div class="row"><label>Mechanik<select id="editJobMechanic"><option>Tomáš</option><option>Petr</option><option>Martin</option></select></label><label>Stav<select id="editJobStatus"><option>Naplánováno</option><option>Přijato</option><option>Diagnostika</option><option>Čeká na schválení</option><option>Opravuje se</option><option>Hotovo</option><option>Předáno</option></select></label></div><label>Zakázka / práce<textarea id="editJobRequest" rows="5"></textarea></label><div class="actions"><button onclick="closeJobEdit()">Zrušit</button><button class="primary" onclick="saveJobEdit()">Uložit změny</button></div></div></div>
+<div id="maintenanceModal" class="modal"><div class="sheet"><div style="display:flex;justify-content:space-between;align-items:center"><h2>🔧 Servisní záznam</h2><button onclick="closeMaintenanceModal()">✕</button></div><input type="hidden" id="maintId"><input type="hidden" id="maintCarId"><label>Servis / položka<input id="maintName" placeholder="Motorový olej + filtr"></label><div class="row"><label>Datum<input id="maintDate" type="date"></label><label>KM<input id="maintKm" type="number"></label></div><label>Poznámka<textarea id="maintNote" rows="3"></textarea></label><div class="actions"><button onclick="closeMaintenanceModal()">Zrušit</button><button class="primary" onclick="saveMaintenanceRecord()">Uložit záznam</button></div></div></div>
+<div id="cameraModal" class="modal"><div class="sheet cameraSheet"><div style="display:flex;justify-content:space-between;align-items:center"><h2>📷 Vyfotit technický průkaz</h2><button onclick="closeCamera()">✕</button></div><video id="cameraVideo" autoplay playsinline muted></video><canvas id="cameraCanvas" style="display:none"></canvas><div class="actions"><button onclick="closeCamera()">Zrušit</button><button class="primary" onclick="takePhoto()">📸 Vyfotit</button></div><div id="cameraHint" class="muted"></div></div></div><div id="detail" class="modal"><div class="sheet"><div style="display:flex;justify-content:space-between;align-items:center"><h2 id="detailTitle">Detail</h2><button onclick="closeDetail()">✕</button></div><div id="detailBody"></div></div></div>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script>
+const KEY='servispilot_v4';
+const OLD_KEYS=['servispilot_v4_3','servispilot_v4_2','servispilot_v4','servispilot_v3','servispilot_v2'];
+const emptyDB=()=>({customers:[],cars:[],jobs:[],maintenance:[],engineSpecs:[],filterSpecs:[],stock:[],invoices:[]});
+function normalizeDB(x){
+  if(!x||typeof x!=='object') return null;
+  const customers=Array.isArray(x.customers)?x.customers:[];
+  customers.forEach(u=>{u.vatPayer=!!u.vatPayer;u.taxId=u.taxId||''});
+  const cars=Array.isArray(x.cars)?x.cars:[];
+  const jobs=Array.isArray(x.jobs)?x.jobs:[];
+  const maintenance=Array.isArray(x.maintenance)?x.maintenance:[];
+  const engineSpecs=Array.isArray(x.engineSpecs)?x.engineSpecs:[];
+  const filterSpecs=Array.isArray(x.filterSpecs)?x.filterSpecs:[];
+  const stock=Array.isArray(x.stock)?x.stock:[];
+  const invoices=Array.isArray(x.invoices)?x.invoices:[];
+  jobs.forEach(j=>{if(j.km===undefined)j.km=0});
+  return {customers,cars,jobs,maintenance,engineSpecs,filterSpecs,stock,invoices,settings:(x.settings&&typeof x.settings==='object')?x.settings:{}};
+}
+function loadDB(){
+  const candidates=[];
+  for(const key of [KEY,...OLD_KEYS]){try{const raw=localStorage.getItem(key);if(raw)candidates.push([key,JSON.parse(raw)])}catch(e){console.warn('DB load',key,e)}}
+  // Also recover any older ServisPilot key left by a previous deployment.
+  try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&/^servispilot/i.test(k)&&![KEY,...OLD_KEYS].includes(k)){try{const x=normalizeDB(JSON.parse(localStorage.getItem(k)));if(x)candidates.push([k,x])}catch(e){}}}}catch(e){}
+  // Prefer the database with the most records. This prevents a fresh empty DB from replacing real data.
+  let best=null,bestScore=-1;
+  for(const [key,x0] of candidates){const x=normalizeDB(x0);if(!x)continue;const score=x.customers.length+x.cars.length+x.jobs.length;if(score>bestScore){best=x;bestScore=score}}
+  return best||emptyDB();
+}
+let db=loadDB();try{const b=localStorage.getItem(KEY+'_backup');if(db.customers.length+db.cars.length+db.jobs.length===0&&b){const bx=normalizeDB(JSON.parse(b));if(bx)db=bx}}catch(e){}
+let filter='__open',calendarMonth=new Date(new Date().getFullYear(),new Date().getMonth(),1),selectedCalendarDate=todaySafe(),q=x=>document.getElementById(x);
+function todaySafe(){return new Date().toISOString().slice(0,10)}
+function persist(){try{const data=JSON.stringify(db);localStorage.setItem(KEY,data);localStorage.setItem(KEY+'_backup',data);render();return true}catch(e){alert('Data se nepodařilo uložit do telefonu. Zkontroluj volné místo nebo soukromý režim Safari.');console.error(e);return false}}
+function today(){return todaySafe()}
+function show(id){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));q(id).classList.add('active');render()}
+function resetForm(){
+  ['spz','vin','make','model','engine','power','ccm','year','km','customer','phone','email','request'].forEach(id=>{if(q(id))q(id).value=''});
+  if(q('date'))q('date').value=today(); if(q('time'))q('time').value='08:00'; if(q('duration'))q('duration').value='2';
+  if(q('mechanic'))q('mechanic').selectedIndex=0; if(q('status'))q('status').selectedIndex=0; if(q('fuel'))q('fuel').selectedIndex=0;
+  ['photos','tpFile','tpCamera'].forEach(id=>{if(q(id))q(id).value=''});
+  ['scanInfo','ocrProgress'].forEach(id=>{if(q(id))q(id).textContent=''}); if(q('techPreview')){q('techPreview').style.display='none';q('techPreview').innerHTML=''};
+  if(q('ocrBtn')){q('ocrBtn').disabled=false;q('ocrBtn').textContent='🤖 Načíst údaje z TP'}
+}
+function openJob(){resetForm();q('modal').classList.add('show')}
+function closeModal(){q('modal').classList.remove('show')}
+function chooseTP(){const f=q('tpFile');if(f){f.value='';f.click()}}
+let cameraStream=null;
+async function openCamera(){
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){q('tpCamera').value='';q('tpCamera').click();return}
+  try{cameraStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080}},audio:false});q('cameraVideo').srcObject=cameraStream;q('cameraHint').textContent='Drž telefon rovně nad celým TP a foť bez odlesků.';q('cameraModal').classList.add('show')}catch(e){q('tpCamera').value='';q('tpCamera').click()}
+}
+function closeCamera(){if(cameraStream){cameraStream.getTracks().forEach(t=>t.stop());cameraStream=null}if(q('cameraVideo'))q('cameraVideo').srcObject=null;q('cameraModal').classList.remove('show')}
+function takePhoto(){const v=q('cameraVideo'),c=q('cameraCanvas');if(!v.videoWidth)return;const scale=Math.min(1.5,2000/v.videoWidth);c.width=Math.round(v.videoWidth*scale);c.height=Math.round(v.videoHeight*scale);c.getContext('2d').drawImage(v,0,0,c.width,c.height);c.toBlob(blob=>{if(!blob)return;const file=new File([blob],'TP-'+Date.now()+'.jpg',{type:'image/jpeg'});const dt=new DataTransfer();dt.items.add(file);q('tpCamera').files=dt.files;q('tpFile').value='';scanCameraReady(q('tpCamera'));closeCamera()},'image/jpeg',.92)}
+
+function closeDetail(){q('detail').classList.remove('show')}
+function scanReady(x){
+  if(x.files&&x.files.length){q('tpCamera').value='';q('scanInfo').textContent='✓ Fotka z Fotek vybrána. Klepni na „Načíst údaje z TP“. ';q('ocrProgress').textContent=''}
+}
+function scanCameraReady(x){
+  if(x.files&&x.files.length){q('tpFile').value='';q('scanInfo').textContent='✓ Fotka z fotoaparátu vybrána. Klepni na „Načíst údaje z TP“. ';q('ocrProgress').textContent=''}
+}
+function setVal(id,v){if(v!==undefined&&v!==null&&String(v).trim()&&q(id))q(id).value=String(v).trim()}
+function normOCR(s){return (s||'').replace(/[|]/g,'I').replace(/[“”]/g,'"').replace(/[’‘]/g,"'").replace(/\r/g,'\n').replace(/\u00a0/g,' ')}
+function clean(v){return String(v||'').replace(/\s+/g,' ').replace(/^[:;,.\-]+|[:;,.\-]+$/g,'').trim()}
+function afterLabel(lines,labels){
+  for(let i=0;i<lines.length;i++){
+    const line=lines[i];
+    for(const label of labels){
+      const safe=label.replace(/[.]/g,'\\.');
+      const re=new RegExp('(?:^|\\s)'+safe+'(?:\\s*[:.-]?\\s*)(.*)$','i');
+      const m=line.match(re);
+      if(m&&clean(m[1])&&!/^(identifikační|max\.?|povolená|provozní|palivo|barva)/i.test(m[1])) return clean(m[1]);
+      if(m){for(let k=i+1;k<Math.min(i+4,lines.length);k++){const v=clean(lines[k]);if(v&&!/^(D\.?[123]|P\.?[123]|E|B|R|T|G|S\.?1|F\.?[123])$/i.test(v))return v}}
+    }
+  }
+  return ''
+}
+function firstMatch(text,patterns){for(const re of patterns){const m=text.match(re);if(m&&m[1])return clean(m[1])}return ''}
+function valueAfterField(lines,labelRe){
+  for(let i=0;i<lines.length;i++){
+    const line=lines[i];
+    if(!labelRe.test(line)) continue;
+    const tail=clean(line.replace(labelRe,' '));
+    if(tail && !/^(tovární značka|typ,? varianta,? verze|obchodní označení|max\.? výkon|zdvihový objem|palivo|počet míst|barva|identifikační číslo vozidla)$/i.test(tail)) return tail;
+    for(let k=i+1;k<Math.min(i+5,lines.length);k++){
+      const v=clean(lines[k]);
+      if(v && !/^(d\.?[123]|p\.?[123]|s\.?1|e|b|r|t)$/i.test(v)) return v;
+    }
+  }
+  return '';
+}
+function parseTP(text){
+  const raw=normOCR(text),lines=raw.split(/\n+/).map(clean).filter(Boolean),one=lines.join(' ');
+  let vin=firstMatch(one,[/\b([A-HJ-NPR-Z0-9]{17})\b/i]);
+  vin=(vin||'').replace(/[^A-Z0-9]/gi,'').toUpperCase(); if(vin.length>17)vin=vin.slice(0,17);
+  let spz=firstMatch(one,[/\b(\d{1,3}\s?[A-ZČĎÉĚÍŇÓŘŠŤÚŮÝŽ]{1,3}\s?\d{3,4})\b/i]);
+  let make=valueAfterField(lines,/D\.?1|TOVÁRNÍ ZNAČKA/i);
+  let type=valueAfterField(lines,/D\.?2|TYP[, ]+VARIANTA[, ]+VERZE/i);
+  let model=valueAfterField(lines,/D\.?3|OBCHODNÍ OZNAČENÍ|MODEL/i);
+  // Common Czech TP layout: P.1 = displacement, P.2 = power, P.3 = fuel.
+  let ccm=firstMatch(one,[/P\.?1[^0-9]{0,25}(\d{3,5})(?:\s*cm(?:3|³))?/i,/ZDV[IÍ]HOV[ÝY]\s+OBJEM[^0-9]{0,20}(\d{3,5})/i]);
+  let power=firstMatch(one,[/P\.?2[^0-9]{0,25}(\d{2,3}(?:[.,]\d+)?)\s*(?:kW)?/i,/MAX\.?\s*V[ÝY]KON[^0-9]{0,25}(\d{2,3}(?:[.,]\d+)?)/i,/\b(\d{2,3}(?:[.,]\d+)?)\s*kW\b/i]);
+  let fuel=firstMatch(one,[/P\.?3[^A-Z]{0,20}(NAFTA|DIESEL|BENZ[IÍ]N|ELEKTRO|HYBRID|LPG)/i,/\b(NAFTA|DIESEL|BENZ[IÍ]N|ELEKTRO|HYBRID|LPG)\b/i]);
+  let year=firstMatch(one,[/B[^0-9]{0,20}(20\d{2})/i,/\b(19\d{2}|20\d{2})[-./]\d{1,2}[-./]\d{1,2}\b/]);
+  let seats=firstMatch(one,[/S\.?1[^0-9]{0,15}(\d{1,2})/i,/POČET\s+M[IÍ]ST[^0-9]{0,15}(\d{1,2})/i]);
+  let maxSpeed=firstMatch(one,[/T[^0-9]{0,15}(\d{2,3})/i,/NEJVYŠŠ[IÍ]\s+RYCHLOST[^0-9]{0,15}(\d{2,3})/i]);
+  let color=firstMatch(one,[/R[^A-ZÀ-Ž]{0,15}(B[IÍ]L[AÁ]|ČERN[AÁ]|ŠED[AÁ]|MODR[AÁ]|ČERVEN[AÁ]|ZELEN[AÁ]|HNĚD[AÁ]|STŘ[IÍ]BRN[AÁ]|ŽLUT[AÁ])/i,/\b(B[IÍ]L[AÁ]|ČERN[AÁ]|ŠED[AÁ]|MODR[AÁ]|ČERVEN[AÁ]|ZELEN[AÁ]|HNĚD[AÁ]|STŘ[IÍ]BRN[AÁ]|ŽLUT[AÁ])\b/i]);
+  // Fallbacks for OCR where field labels are lost.
+  if(!ccm){const m=one.match(/\b(\d{4})\s*(?:cm3|cm³|cm\s*3)\b/i);if(m)ccm=m[1]}
+  if(!power){const m=one.match(/\b(\d{2,3}(?:[.,]\d+)?)\s*kW\b/i);if(m)power=m[1]+' kW'}
+  if(!year){const m=one.match(/\b(19\d{2}|20\d{2})[-./]\d{1,2}[-./]\d{1,2}\b/);if(m)year=m[1]}
+  return {spz,vin,make,type,model,power,ccm,year,fuel,seats,maxSpeed,color,rawText:raw};
+}
+function pickFile(){return (q('tpFile').files&&q('tpFile').files[0])||(q('tpCamera').files&&q('tpCamera').files[0])}
+function canvasFromImage(img,angle,enhance=true){
+  const rad=angle*Math.PI/180,swap=angle%180!==0,scale=2,c=document.createElement('canvas');
+  const w=swap?img.naturalHeight:img.naturalWidth,h=swap?img.naturalWidth:img.naturalHeight;c.width=w*scale;c.height=h*scale;
+  const ctx=c.getContext('2d');ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.save();ctx.translate(c.width/2,c.height/2);ctx.rotate(rad);if(enhance)ctx.filter='grayscale(1) contrast(1.45) brightness(1.05)';ctx.drawImage(img,-img.naturalWidth*scale/2,-img.naturalHeight*scale/2,img.naturalWidth*scale,img.naturalHeight*scale);ctx.restore();return c
+}
+function loadImage(file){return new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=reject;img.src=URL.createObjectURL(file)})}
+async function recognize(canvas,psm,logger){
+  return Tesseract.recognize(canvas,'ces+eng',{logger, tessedit_pageseg_mode:String(psm), preserve_interword_spaces:'1'});
+}
+function scoreData(d){return [d.spz,d.vin,d.make,d.model,d.power,d.ccm,d.year,d.fuel,d.seats,d.color].filter(Boolean).length}
+function applyTPData(d){
+  setVal('spz',d.spz);setVal('vin',d.vin);setVal('make',d.make);setVal('model',d.model);setVal('engine',d.type);setVal('power',d.power);setVal('ccm',d.ccm);setVal('year',d.year);
+  if(d.fuel){const f=d.fuel.toLowerCase();if(f.includes('naft')||f.includes('dies'))q('fuel').value='Nafta';else if(f.includes('benz'))q('fuel').value='Benzín';else if(f.includes('elekt'))q('fuel').value='Elektro';else if(f.includes('hybrid'))q('fuel').value='Hybrid';else if(f.includes('lpg'))q('fuel').value='LPG'}
+}
+async function runOCR(){
+  const input=pickFile();if(!input)return alert('Nejdřív vyber fotku z Fotek nebo ji vyfoť.');if(!window.Tesseract)return alert('OCR knihovna se ještě nenačetla. Zkus to za chvíli znovu.');
+  const btn=q('ocrBtn');btn.disabled=true;btn.textContent='⏳ Čtu technický průkaz…';q('ocrProgress').textContent='Připravuji fotografii…';
+  try{
+    const img=await loadImage(input);const angles=[0,90,180,270];let best=null;
+    for(let ai=0;ai<angles.length;ai++){
+      const canvas=canvasFromImage(img,angles[ai],true);
+      for(const psm of [6,11]){
+        q('ocrProgress').textContent='Čtení TP: orientace '+(angles[ai]===0?'0°':angles[ai]+'°')+'…';
+        const result=await recognize(canvas,psm,m=>{if(m.status==='recognizing text'&&m.progress)q('ocrProgress').textContent='Čtení TP: '+Math.round(m.progress*100)+' %'});
+        const d=parseTP(result.data.text||'');const score=scoreData(d);if(!best||score>best.score)best={score,d};
+        if(score>=7)break;
+      }
+      if(best&&best.score>=7)break;
+    }
+    if(best&&best.score){applyTPData(best.d);q('scanInfo').textContent='✓ TP načten. Našel jsem '+best.score+' údajů. Zkontroluj je před uložením.';q('ocrProgress').textContent=best.score<5?'Některá pole se nepodařilo přečíst. Pomůže ostřejší fotka kolmo na TP.':'Hotovo.'}
+    else{q('scanInfo').textContent='⚠️ TP se nepodařilo spolehlivě přečíst.';q('ocrProgress').textContent='Zkus ostrou fotku celé strany TP, bez odlesků.'}
+    URL.revokeObjectURL(img.src);
+  }catch(e){console.error(e);q('scanInfo').textContent='⚠️ OCR se nepodařilo dokončit.';q('ocrProgress').textContent='Zkus ostrou fotku bez odlesků.'}
+  finally{btn.disabled=false;btn.textContent='🤖 Načíst údaje z TP'}
+}
+function showJobsFilter(mode){show('jobs');if(mode==='today')filter='__today';else if(mode==='open')filter='__open';else if(mode==='approve')filter='Čeká na schválení';render()}
+function cu(id){return db.customers.find(x=>x.id===id)||{}}
+function ca(id){return db.cars.find(x=>x.id===id)||{}}
+function jj(id){return db.jobs.find(x=>x.id===id)}
+function badge(s){let c=s==='Hotovo'||s==='Předáno'?'green':s==='Čeká na schválení'?'yellow':s==='Diagnostika'?'gray':'';return '<span class="pill '+c+'">'+(s||'')+'</span>'}
+function normKey(v){return String(v||'').trim().toUpperCase().replace(/\s+/g,'')}
+function parseYears(s){
+  const m=String(s||'').match(/(19\d{2}|20\d{2})\s*[–\-]\s*(19\d{2}|20\d{2})/);
+  if(m)return [+m[1],+m[2]];
+  const y=String(s||'').match(/(19\d{2}|20\d{2})/); return y?[+y[1],+y[1]]:[null,null];
+}
+function yearInRange(year,range){const [a,b]=parseYears(range); if(!year||!a)return true; return +year>=a && +year<=b}
+function findEngineSpec(code){const k=normKey(code); if(!k)return null; return db.engineSpecs.find(x=>normKey(x.code)===k)||null}
+function findFilterSpec(make,model,year){
+  const mk=String(make||'').trim().toLowerCase(), md=String(model||'').trim().toLowerCase();
+  const list=db.filterSpecs.filter(x=>String(x.make||'').trim().toLowerCase()===mk && String(x.model||'').trim().toLowerCase()===md && yearInRange(year,x.years));
+  return list.sort((a,b)=>{const [aa]=parseYears(a.years),[bb]=parseYears(b.years);return (bb||0)-(aa||0)})[0]||null;
+}
+function techForVehicle(make,model,year,engine){
+  return {engine:findEngineSpec(engine),filters:findFilterSpec(make,model,year)};
+}
+function techPreviewHTML(make,model,year,engine){
+  const t=techForVehicle(make,model,year,engine);
+  if(!t.engine&&!t.filters)return '';
+  let h='<h4>⚙️ Technická data vozidla</h4>';
+  if(t.engine){
+    const e=t.engine;
+    h+='<div class="maintrow"><span>Motorový olej</span><b>'+(e.oilLiters||'—')+' l'+(e.oilSpec?' · '+e.oilSpec:'')+'</b></div>';
+    if(e.dsgLiters)h+='<div class="maintrow"><span>DSG olej</span><b>'+e.dsgLiters+' l</b></div>';
+    if(e.haldexLiters)h+='<div class="maintrow"><span>Haldex olej</span><b>'+e.haldexLiters+' l</b></div>';
+  }
+  if(t.filters){
+    const f=t.filters;
+    [['Olejový filtr',f.oilFilter],['Vzduchový filtr',f.airFilter],['Kabinový filtr',f.cabinFilter],['Palivový filtr',f.fuelFilter]].forEach(([n,v])=>{if(v)h+='<div class="maintrow"><span>'+n+'</span><b>'+v+'</b></div>'});
+  }
+  h+='<div class="maintnote">Náplně jsou vedené podle kódu motoru. Filtry jsou vedené podle modelu a období výroby.</div>';
+  return h;
+}
+function previewTechForJob(){
+  const box=q('techPreview'); if(!box)return;
+  const h=techPreviewHTML(q('make').value,q('model').value,q('year').value,q('engine').value);
+  box.innerHTML=h; box.style.display=h?'block':'none';
+}
+function clearTechForm(){
+  ['techEngine','techMake','techModel','techYears','techOil','techOilSpec','techDsg','techHaldex','techOilFilter','techAirFilter','techCabinFilter','techFuelFilter'].forEach(id=>{if(q(id))q(id).value=''});
+}
+function saveTechSpec(){
+  const code=normKey(q('techEngine').value);
+  if(!code)return alert('Vyplň kód motoru.');
+  const existing=db.engineSpecs.find(x=>normKey(x.code)===code);
+  const e={code,oilLiters:q('techOil').value,oilSpec:q('techOilSpec').value,dsgLiters:q('techDsg').value,haldexLiters:q('techHaldex').value};
+  if(existing)Object.assign(existing,e); else db.engineSpecs.push(e);
+  const make=q('techMake').value.trim(),model=q('techModel').value.trim(),years=q('techYears').value.trim();
+  if(make&&model&&years){
+    const f={make,model,years,oilFilter:q('techOilFilter').value.trim(),airFilter:q('techAirFilter').value.trim(),cabinFilter:q('techCabinFilter').value.trim(),fuelFilter:q('techFuelFilter').value.trim()};
+    const old=db.filterSpecs.find(x=>x.make.toLowerCase()===make.toLowerCase()&&x.model.toLowerCase()===model.toLowerCase()&&x.years===years);
+    if(old)Object.assign(old,f); else db.filterSpecs.push(f);
+  }
+  persist(); clearTechForm(); renderTechList(); alert('Technická data uložena.');
+}
+function renderTechList(){
+  const box=q('techList'); if(!box)return;
+  let h='';
+  if(db.engineSpecs.length){
+    h+='<h3>Kódy motorů</h3>';
+    h+=db.engineSpecs.map(e=>'<div class="job"><div><b>'+e.code+'</b><br><span class="muted">'+(e.oilLiters||'—')+' l · '+(e.oilSpec||'bez specifikace')+(e.dsgLiters?' · DSG '+e.dsgLiters+' l':'')+(e.haldexLiters?' · Haldex '+e.haldexLiters+' l':'')+'</span></div></div>').join('');
+  }
+  if(db.filterSpecs.length){
+    h+='<h3 style="margin-top:14px">Filtry podle modelu a roku</h3>';
+    h+=db.filterSpecs.map(f=>'<div class="job"><div><b>'+f.make+' '+f.model+'</b> · '+f.years+'<br><span class="muted">Olej: '+(f.oilFilter||'—')+' · Vzduch: '+(f.airFilter||'—')+' · Kabina: '+(f.cabinFilter||'—')+' · Palivo: '+(f.fuelFilter||'—')+'</span></div></div>').join('');
+  }
+  box.innerHTML=h||'<span class="muted">Zatím nejsou uložená žádná technická data.</span>';
+}
+
+const SERVICE_RULES=[
+  {key:'oil',name:'Motorový olej + olejový filtr',km:15000,months:null,terms:/olej|olejový|olejovy/i},
+  {key:'air',name:'Vzduchový filtr',km:30000,months:null,terms:/vzduchov[ýy]\s+filtr/i},
+  {key:'cabin',name:'Kabinový / pylový filtr',km:30000,months:null,terms:/kabinov[ýy]|pylov[ýy]/i},
+  {key:'fuel',name:'Palivový filtr',km:45000,months:null,terms:/palivov[ýy]\s+filtr/i},
+  {key:'brakes',name:'Kontrola brzd',km:15000,months:null,terms:/kontrola brzd|brzdy/i},
+  {key:'brakefluid',name:'Brzdová kapalina',km:null,months:24,terms:/brzdov[áa]\s+kapalina/i},
+  {key:'ac',name:'Klimatizace',km:null,months:24,terms:/klima|klimatiz/i},
+  {key:'spark',name:'Svíčky',km:60000,months:null,terms:/sv[ií]čky|zapalovac[ií]/i},
+  {key:'dsg',name:'DSG olej + filtr',km:60000,months:null,terms:/dsg.*(olej|servis)|olej.*dsg|dsg/i},
+  {key:'haldex',name:'Haldex olej + servis',km:60000,months:null,terms:/haldex/i},
+];
+function addMonths(dateStr,months){const d=new Date((dateStr||today())+'T12:00:00');d.setMonth(d.getMonth()+months);return d.toISOString().slice(0,10)}
+function maintenanceHistory(carId){
+  const jobs=db.jobs.filter(j=>j.carId===carId);const out={};
+  for(const rule of SERVICE_RULES){const hits=jobs.filter(j=>rule.terms.test(j.request||''));if(hits.length){hits.sort((a,b)=>(b.date||'').localeCompare(a.date||''));const h=hits[0];out[rule.key]={date:h.date||'',km:+h.km||0,job:h}}}
+  return out;
+}
+function maintenanceStatus(car,rule,history,kmNow){
+  const h=history[rule.key]; const km=+kmNow||+car.km||0;
+  if(!h)return {state:'unknown',label:'Není v historii'};
+  const dueKm=h.km&&rule.km?h.km+rule.km:null, dueDate=h.date&&rule.months?addMonths(h.date,rule.months):null;
+  const kmDue=dueKm&&km>=dueKm, dateDue=dueDate&&today()>=dueDate;
+  const kmSoon=dueKm&&km>=dueKm-Math.min(2000,rule.km*.15), dateSoon=dueDate&&new Date(today())>=new Date(addMonths(dueDate,-2));
+  if(kmDue||dateDue)return {state:'due',label:'Doporučeno nyní',dueKm,dueDate};
+  if(kmSoon||dateSoon)return {state:'soon',label:'Brzy na řadě',dueKm,dueDate};
+  return {state:'ok',label:'V pořádku',dueKm,dueDate};
+}
+function getMaintenance(carId,kmNow){const car=ca(carId);const h=maintenanceHistory(carId);return SERVICE_RULES.map(r=>({rule:r,status:maintenanceStatus(car,r,h,kmNow)}));}
+function maintenanceHTML(carId,kmNow){const c=ca(carId);if(!c.id)return '';const items=getMaintenance(carId,kmNow);const due=items.filter(x=>x.status.state==='due'),soon=items.filter(x=>x.status.state==='soon');let html='<h4>🔧 Servisní plán</h4>';
+  if(due.length)html+='<div style="font-weight:700;margin-bottom:6px">⚠️ Co je podle historie potřeba řešit:</div>';
+  else html+='<div class="maintnote">Podle uložené historie není nic po intervalu. Neznamená to, že je vše skutečně v pořádku. Intervaly jsou orientační.</div>';
+  for(const x of [...due,...soon]){const st=x.status;html+='<div class="maintrow"><span>'+x.rule.name+'</span><span class="'+st.state+'">'+st.label+'</span></div>'}
+  if(!due.length&&!soon.length)html+=items.slice(0,4).map(x=>'<div class="maintrow"><span>'+x.rule.name+'</span><span class="ok">Bez záznamu / kontrola</span></div>').join('');
+  html+='<div class="maintnote">Intervaly jsou nastavené podle servisního plánu ServisPilotu: olej 15 000 km, vzduchový a kabinový filtr 30 000 km, palivový filtr 45 000 km, svíčky/DSG/Haldex 60 000 km, klimatizace a brzdová kapalina 2 roky. U konkrétního motoru může výrobce požadovat jiný interval.</div>';return html;
+}
+function previewMaintenance(){const spz=(q('spz')?.value||'').trim().toUpperCase(),vin=(q('vin')?.value||'').trim().toUpperCase();const km=+(q('km')?.value||0);let c=db.cars.find(x=>(x.spz||'').toUpperCase()===spz)||(vin?db.cars.find(x=>(x.vin||'').toUpperCase()===vin):null);const box=q('maintenancePreview');if(!box)return;if(!c){box.style.display='none';return}box.innerHTML=maintenanceHTML(c.id,km);box.style.display='block'}
+function addService(name){const el=q('request');if(!el)return;const current=el.value.trim();const parts=current?current.split('\n').map(x=>x.trim()).filter(Boolean):[];if(!parts.includes(name))parts.push(name);el.value=parts.join('\n');el.focus();}
+function saveJob(){
+  const spz=q('spz').value.trim().toUpperCase(),name=q('customer').value.trim();if(!name)return alert('Vyplň jméno zákazníka. SPZ můžeš doplnit později, pokud není na TP.');
+  const existingCar=db.cars.find(x=>(x.spz||'').toUpperCase()===spz);let u=existingCar?cu(existingCar.customerId):(db.customers.find(x=>x.phone&&x.phone===q('phone').value.trim())||db.customers.find(x=>(x.name||'').toLowerCase()===name.toLowerCase()));
+  if(!u){u={id:Date.now(),name,phone:q('phone').value.trim(),email:q('email').value.trim()};db.customers.push(u)}else{u.name=name;u.phone=q('phone').value.trim()||u.phone;u.email=q('email').value.trim()||u.email}
+  let c=db.cars.find(x=>(x.spz||'').toUpperCase()===spz);
+  const carData={vin:q('vin').value.trim(),make:q('make').value.trim(),model:q('model').value.trim(),engine:q('engine').value.trim(),power:q('power').value.trim(),ccm:q('ccm').value.trim(),year:q('year').value,fuel:q('fuel').value,km:+q('km').value||0,customerId:u.id};
+  if(!c){c={id:Date.now()+1,spz,...carData};db.cars.push(c)}else{Object.assign(c,carData,{spz,customerId:u.id})}
+  db.jobs.push({id:Date.now()+2,carId:c.id,customerId:u.id,date:q('date').value,time:q('time').value,duration:+q('duration').value||2,mechanic:q('mechanic').value,status:q('status').value,request:q('request').value,km:+q('km').value||0,engineCode:q('engine').value.trim().toUpperCase()});
+  if(!persist())return;resetForm();closeModal();show('jobs');
+}
+function row(j){let c=ca(j.carId),u=cu(j.customerId);return '<div class="job"><div><b>'+j.date+' · '+j.time+' · '+(c.spz||'')+'</b><br>'+(c.make||'')+' '+(c.model||'')+' · '+(u.name||'')+'<br><span class="muted">'+(j.request||'Bez popisu')+' · '+j.mechanic+' · '+j.duration+' h</span></div><div>'+badge(j.status)+'<br><button onclick="openJobDetail('+j.id+')" style="background:none;color:#2563eb;padding:4px">Detail</button></div></div>'}
+function printJob(id){
+ const j=jj(id),c=ca(j.carId),u=cu(j.customerId),w=window.open('','_blank'); if(!w)return;
+ const rows=(j.services&&j.services.length?j.services:[{name:j.request||'Zakázka',duration:j.duration||0}]).map(x=>'<tr><td>'+esc(x.name)+'</td><td>'+Number(x.duration||0).toFixed(1)+' h</td></tr>').join('');
+ w.document.write('<!doctype html><html lang="cs"><head><meta charset="utf-8"><title>Zakázkový list</title><style>@page{size:A4;margin:12mm}body{font-family:Arial,sans-serif;font-size:12px;color:#111}.head{display:flex;justify-content:space-between;border-bottom:2px solid #111;padding-bottom:10px}.logo{font-size:24px;font-weight:800}.box{border:1px solid #111;margin-top:10px}.title{font-weight:800;background:#eee;padding:7px}.p{padding:9px}.grid{display:grid;grid-template-columns:1fr 1fr}.cell{padding:8px;border-right:1px solid #111;border-bottom:1px solid #111;min-height:32px}.wide{grid-column:1/-1}table{width:100%;border-collapse:collapse}td,th{padding:7px;border-bottom:1px solid #ccc;text-align:left}.sign{height:55px}</style></head><body><div class="head"><div class="logo">SERVISPILOT</div><div>ZAKÁZKOVÝ LIST<br>Číslo: '+j.id+'<br>Datum: '+esc(j.date||'')+'</div></div><div class="box"><div class="title">VOZIDLO</div><div class="grid"><div class="cell"><b>ZNAČKA / MODEL</b><br>'+esc(c.make||'')+' '+esc(c.model||'')+'</div><div class="cell"><b>SPZ</b><br>'+esc(c.spz||'')+'</div><div class="cell"><b>STAV KM</b><br>'+esc(c.km||j.km||'')+'</div><div class="cell"><b>VIN</b><br>'+esc(c.vin||'')+'</div><div class="cell"><b>MOTOR</b><br>'+esc(c.engine||'')+'</div><div class="cell"><b>ROK</b><br>'+esc(c.year||'')+'</div></div></div><div class="box"><div class="title">ZÁKAZNÍK</div><div class="p"><b>'+esc(u.name||'')+'</b><br>'+esc(u.phone||'')+'<br>'+esc(u.email||'')+'</div></div><div class="box"><div class="title">OBJEDNANÉ PRÁCE</div><table><tr><th>Práce</th><th>Čas</th></tr>'+rows+'</table></div><div class="box"><div class="title">ZJIŠTĚNÉ / OBJEDNANÉ PRÁCE A POZNÁMKY</div><div class="p">'+esc(j.request||'')+'</div></div><div class="box"><div class="title">KONTAKTNÍ ÚDAJE / PŘEDBĚŽNÁ CENA</div><div class="grid"><div class="cell"><b>PŘEDBĚŽNÁ CENA</b><br>________________ Kč</div><div class="cell"><b>ZÁKAZNÍK</b><br>'+esc(u.name||'')+'</div><div class="cell sign">VOZIDLO PŘEDAL</div><div class="cell sign">VOZIDLO PŘEVZAL</div></div></div></body></html>'); w.document.close(); w.focus(); setTimeout(()=>w.print(),250);
+}
+function showWorkshop(){filter='__open';show('jobs')}
+function lookupCarBySpz(){const raw=(q('spz')?.value||'').trim().toUpperCase();const c=db.cars.find(x=>(x.spz||'').toUpperCase()===raw);const hint=q('spzLookup');if(!c){if(hint)hint.textContent=raw?'Nové vozidlo – údaje doplníš ručně.':'';return}const u=cu(c.customerId);['vin','make','model','engine','power','ccm','year','fuel','km'].forEach(k=>{if(q(k)&&c[k]!=null)q(k).value=c[k]});if(q('customer'))q('customer').value=u.name||'';if(q('phone'))q('phone').value=u.phone||'';if(q('email'))q('email').value=u.email||'';if(hint)hint.textContent='✓ Vozidlo nalezeno v databázi. Zákazník: '+(u.name||'');previewMaintenance();previewTechForJob()}
+function searchAll(){const term=(q('search')?.value||'').trim().toLowerCase();if(!term){if(q('results'))q('results').style.display='none';return}show('customers');if(q('customerSearch'))q('customerSearch').value=term;renderCustomers()}
+
+function openCustomerModal(id){const u=id?cu(id):{};q('customerIdEdit').value=u.id||'';q('custNameEdit').value=u.name||'';q('custPhoneEdit').value=u.phone||'';q('custEmailEdit').value=u.email||'';q('custTaxEdit').value=u.taxId||'';q('custVatEdit').value=String(!!u.vatPayer);q('customerModalTitle').textContent=id?'✏️ Upravit zákazníka':'👤 Nový zákazník';q('customerModal').classList.add('show')}
+function closeCustomerModal(){q('customerModal').classList.remove('show')}
+function saveCustomerModal(){const name=q('custNameEdit').value.trim();if(!name)return alert('Vyplň jméno nebo název zákazníka.');const id=Number(q('customerIdEdit').value)||Date.now();let u=cu(id);if(!u.id){u={id};db.customers.push(u)}Object.assign(u,{name,phone:q('custPhoneEdit').value.trim(),email:q('custEmailEdit').value.trim(),taxId:q('custTaxEdit').value.trim(),vatPayer:q('custVatEdit').value==='true'});persist();closeCustomerModal();renderCustomers()}
+function openCustomerCarModal(customerId,carId){const c=carId?ca(carId):{};q('customerCarId').value=c.id||'';q('customerCarCustomerId').value=customerId;q('ccSpz').value=c.spz||'';q('ccVin').value=c.vin||'';q('ccMake').value=c.make||'';q('ccModel').value=c.model||'';q('ccEngine').value=c.engine||'';q('ccYear').value=c.year||'';q('ccPower').value=c.power||'';q('ccCcm').value=c.ccm||'';q('ccFuel').value=c.fuel||'Nafta';q('ccKm').value=c.km||0;q('customerCarModal').classList.add('show')}
+function closeCustomerCarModal(){q('customerCarModal').classList.remove('show')}
+function saveCustomerCar(){const cid=Number(q('customerCarCustomerId').value),spz=normSpz(q('ccSpz').value);if(!cid)return alert('Chybí zákazník.');if(!spz)return alert('Vyplň SPZ.');const editId=Number(q('customerCarId').value);let c=editId?ca(editId):null;if(!c||!c.id){c={id:Date.now(),spz};db.cars.push(c)}Object.assign(c,{spz,vin:q('ccVin').value.trim(),make:q('ccMake').value.trim(),model:q('ccModel').value.trim(),engine:q('ccEngine').value.trim().toUpperCase(),year:q('ccYear').value,power:q('ccPower').value.trim(),ccm:q('ccCcm').value.trim(),fuel:q('ccFuel').value,km:Number(q('ccKm').value)||0,customerId:cid});persist();closeCustomerCarModal();renderCustomers()}
+function renderCustomers(){const box=q('customersList');if(!box)return;const term=(q('customerSearch')?.value||'').trim().toLowerCase();let users=db.customers.slice().sort((a,b)=>(a.name||'').localeCompare(b.name||'','cs'));users=users.filter(u=>{const cars=db.cars.filter(c=>c.customerId===u.id);return !term||(u.name||'').toLowerCase().includes(term)||cars.some(c=>(c.spz||'').toLowerCase().includes(term))});if(!users.length){box.innerHTML='<div class="muted">Žádný zákazník neodpovídá hledání.</div>';return}box.innerHTML=users.map(u=>{const cars=db.cars.filter(c=>c.customerId===u.id);return '<div class="card" style="margin:10px 0;padding:14px"><div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><div><b style="font-size:18px">'+esc(u.name||'')+'</b><br><span class="muted">'+esc(u.phone||'')+(u.email?' · '+esc(u.email):'')+'</span><br><span class="v12chip">'+(u.vatPayer?'Plátce DPH':'Neplátce DPH')+'</span>'+(u.taxId?' <span class="muted">IČO/DIČ: '+esc(u.taxId)+'</span>':'')+'</div><button onclick="openCustomerModal('+u.id+')">✏️</button></div><div style="margin-top:10px"><b>Vozidla ('+cars.length+')</b></div>'+(cars.length?cars.map(c=>'<div class="job" style="padding:10px 0"><div><b>'+esc(c.spz||'')+'</b> · '+esc((c.make||'')+' '+(c.model||''))+'<br><span class="muted">'+esc(c.engine||'')+' · '+(c.km||0)+' km</span></div><div style="display:flex;gap:5px"><button onclick="openCar('+c.id+')">Otevřít</button><button onclick="openCustomerCarModal('+u.id+','+c.id+')">✏️</button></div></div>').join(''):'<div class="muted" style="padding:8px 0">Zatím bez vozidla.</div>')+'<button class="primary" style="width:100%;margin-top:8px" onclick="openCustomerCarModal('+u.id+')">＋ Přidat vozidlo</button></div>'}).join('')}
+
+function render(){
+  const t=today();q('nToday').textContent=db.jobs.filter(j=>j.date===t).length;q('nOpen').textContent=db.jobs.filter(j=>!['Hotovo','Předáno'].includes(j.status)).length;q('nApprove').textContent=db.jobs.filter(j=>j.status==='Čeká na schválení').length;q('nCars').textContent=db.cars.length;
+  const a=db.jobs.filter(j=>j.date===t).sort((x,y)=>(x.time||'').localeCompare(y.time||''));q('today').innerHTML=a.length?a.map(row).join(''):'<span class="muted">Dnes zatím není naplánovaná žádná práce.</span>';
+  const ss=['Vše','Naplánováno','Přijato','Diagnostika','Čeká na schválení','Opravuje se','Hotovo','Předáno'];q('filters').innerHTML=ss.map(s=>'<button class="'+(s===filter?'active':'')+'" onclick="filter=\''+s+'\';render()">'+s+'</button>').join('');
+  const jobs=filter==='Vše'?db.jobs:filter==='__today'?db.jobs.filter(j=>j.date===today()):filter==='__open'?db.jobs.filter(j=>!['Hotovo','Předáno'].includes(j.status)):db.jobs.filter(j=>j.status===filter);q('jobsList').innerHTML=jobs.length?jobs.slice().sort((x,y)=>(x.date+x.time).localeCompare(y.date+y.time)).map(row).join(''):'<span class="muted">Žádné zakázky.</span>';
+  renderCustomers();
+  renderCalendar(); renderTechList()
+}
+function changeMonth(delta){calendarMonth=new Date(calendarMonth.getFullYear(),calendarMonth.getMonth()+delta,1);selectedCalendarDate=calendarMonth.getFullYear()+'-'+String(calendarMonth.getMonth()+1).padStart(2,'0')+'-01';renderCalendar()}
+function goCalendarToday(){calendarMonth=new Date(new Date().getFullYear(),new Date().getMonth(),1);selectedCalendarDate=today();renderCalendar()}
+function selectCalendarDate(date){selectedCalendarDate=date;const d=new Date(date+'T12:00:00');calendarMonth=new Date(d.getFullYear(),d.getMonth(),1);renderCalendar()}
+function renderCalendar(){
+  const y=calendarMonth.getFullYear(),m=calendarMonth.getMonth();q('calMonth').textContent=new Date(y,m,1).toLocaleDateString('cs-CZ',{month:'long',year:'numeric'});
+  const first=new Date(y,m,1),start=(first.getDay()+6)%7,daysIn=new Date(y,m+1,0).getDate();let out='<div class="calgrid">';['Po','Út','St','Čt','Pá','So','Ne'].forEach(d=>out+='<div class="caldow">'+d+'</div>');
+  for(let i=0;i<42;i++){
+    const day=i-start+1,d=new Date(y,m,day),date=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'),inMonth=d.getMonth()===m,isToday=date===today(),isSelected=date===selectedCalendarDate,jobs=db.jobs.filter(j=>j.date===date).sort((a,b)=>(a.time||'').localeCompare(b.time||''));
+    out+='<div class="calcell '+(inMonth?'':'mutedday')+' '+(isSelected?'calselected':'')+'" onclick="selectCalendarDate(\''+date+'\')"><div class="calnum '+(isToday?'today':'')+'">'+d.getDate()+'</div>';
+    out+=jobs.slice(0,3).map(j=>{const c=ca(j.carId),cl=j.status==='Hotovo'||j.status==='Předáno'?'green':j.status==='Čeká na schválení'?'yellow':'';return '<div class="caljob '+cl+'" onclick="event.stopPropagation();openJobDetail('+j.id+')">'+(j.time||'')+' '+(c.spz||'Zakázka')+'</div>'}).join('');
+    if(jobs.length>3)out+='<div class="calmore">+'+(jobs.length-3)+' další</div>';out+='</div>';
+  }
+  out+='</div>';q('calendarGrid').innerHTML=out;
+  const agendaDate=selectedCalendarDate||today(),agenda=db.jobs.filter(j=>j.date===agendaDate).sort((a,b)=>(a.time||'').localeCompare(b.time||''));
+  q('dayAgenda').innerHTML='<div class="agenda-date">'+new Date(agendaDate+'T12:00:00').toLocaleDateString('cs-CZ',{weekday:'long',day:'numeric',month:'long'})+'</div>'+(agenda.length?agenda.map(j=>{const c=ca(j.carId),u=cu(j.customerId);return '<div class="agenda-item" onclick="openJobDetail('+j.id+')"><div class="agenda-time">'+(j.time||'')+'</div><div class="agenda-main"><b>'+((c.make||'')+' '+(c.model||''))+'</b> · '+(c.spz||'')+'<br><span class="muted">'+(u.name||'')+' · '+(j.request||'Bez popisu')+' · '+j.duration+' h</span></div>'+badge(j.status)+'</div>'}).join(''):'<div class="agenda-empty">Na tento den není naplánovaná žádná práce.</div>')
+}
+function openJobDetail(id){let j=jj(id),c=ca(j.carId),u=cu(j.customerId);if(!j)return;q('detailTitle').textContent='🔧 Zakázka';q('detailBody').innerHTML='<div class="detail"><div class="card"><span class="muted">Vozidlo</span><div class="big">'+(c.spz||'')+'</div>'+(c.make||'')+' '+(c.model||'')+'</div><div class="card"><span class="muted">Zákazník</span><div class="big">'+(u.name||'')+'</div>'+(u.phone||'')+'</div><div class="card"><span class="muted">Termín</span><div class="big">'+j.date+'</div>'+j.time+' · '+j.duration+' h</div><div class="card"><span class="muted">Mechanik</span><div class="big">'+j.mechanic+'</div></div></div><div class="card" style="margin-top:10px"><h3>Stav</h3><select onchange="changeStatus('+id+',this.value)">'+['Naplánováno','Přijato','Diagnostika','Čeká na schválení','Opravuje se','Hotovo','Předáno'].map(s=>'<option '+(s===j.status?'selected':'')+'>'+s+'</option>').join('')+'</select></div><div class="card" style="margin-top:10px"><h3>Požadavek</h3>'+(j.request||'Bez popisu')+'</div><div class="actions"><button onclick="printJob('+id+')">📄 Zakázkový list</button><button onclick="delJob('+id+')">Smazat</button></div>';q('detail').classList.add('show')}
+function changeStatus(id,s){const j=jj(id);if(j){j.status=s;persist();openJobDetail(id)}}
+function delJob(id){if(confirm('Smazat zakázku?')){db.jobs=db.jobs.filter(x=>x.id!==id);persist();closeDetail()}}
+function openCar(id){let c=ca(id),u=cu(c.customerId),h=db.jobs.filter(j=>j.carId===id).sort((a,b)=>(b.date+b.time).localeCompare(a.date+a.time));q('detailTitle').textContent='🚗 '+(c.make||'Vozidlo')+' '+(c.model||'');q('detailBody').innerHTML='<div class="detail"><div class="card"><span class="muted">SPZ</span><div class="big">'+c.spz+'</div></div><div class="card"><span class="muted">VIN</span><div class="big" style="font-size:15px">'+(c.vin||'—')+'</div></div><div class="card"><span class="muted">Motor</span><div class="big" style="font-size:17px">'+(c.engine||'—')+'</div>'+(c.power||'')+'</div><div class="card"><span class="muted">KM</span><div class="big">'+(c.km||0)+'</div></div></div><div class="card" style="margin-top:10px"><h3>👤 Majitel</h3>'+u.name+'<br>'+(u.phone||'')+'<br>'+(u.email||'')+'</div><div class="card" style="margin-top:10px">'+maintenanceHTML(id,c.km||0)+'</div><div class="card" style="margin-top:10px"><h3>🔧 Historie oprav</h3>'+(h.length?h.map(x=>'<div class="job"><div><b>'+x.date+' · '+(x.request||'Zakázka')+'</b><br><span class="muted">'+x.mechanic+' · '+x.duration+' h</span></div>'+badge(x.status)+'</div>').join(''):'<span class="muted">Zatím bez historie.</span>')+'</div>';q('detail').classList.add('show')}
+function render(){
+  renderSpzList();
+  q('nToday').textContent=db.jobs.filter(j=>j.date===today()).length;q('nOpen').textContent=db.jobs.filter(j=>!['Hotovo','Předáno'].includes(j.status)).length;q('nApprove').textContent=db.jobs.filter(j=>j.status==='Čeká na schválení').length;q('nCars').textContent=db.cars.length;
+  const a=db.jobs.filter(j=>j.date===today()).sort((x,y)=>(x.time||'').localeCompare(y.time||''));q('today').innerHTML=a.length?a.map(row).join(''):'<span class="muted">Dnes zatím není naplánovaná žádná práce.</span>';
+  const ss=['Vše','Naplánováno','Přijato','Diagnostika','Čeká na schválení','Opravuje se','Hotovo','Předáno'];q('filters').innerHTML=ss.map(s=>'<button class="'+(s===filter?'active':'')+'" onclick="filter=\''+s+'\';render()">'+s+'</button>').join('');
+  const jobs=filter==='Vše'?db.jobs:filter==='__today'?db.jobs.filter(j=>j.date===today()):filter==='__open'?db.jobs.filter(j=>!['Hotovo','Předáno'].includes(j.status)):db.jobs.filter(j=>j.status===filter);q('jobsList').innerHTML=jobs.length?jobs.slice().sort((x,y)=>(x.date+x.time).localeCompare(y.date+y.time)).map(row).join(''):'<span class="muted">Žádné zakázky.</span>';
+  renderCustomers();
+  renderCalendar();renderTechList();renderStock()
+}
+
+
+function resetForm(){
+  ['spz','vin','make','model','engine','power','ccm','year','km','customer','phone','email','request'].forEach(id=>{if(q(id))q(id).value=''});
+  if(q('date'))q('date').value=today();if(q('time'))q('time').value='08:00';if(q('duration'))q('duration').value='2';if(q('mechanic'))q('mechanic').selectedIndex=0;if(q('status'))q('status').selectedIndex=0;if(q('fuel'))q('fuel').selectedIndex=0;
+  ['photos','tpFile','tpCamera'].forEach(id=>{if(q(id))q(id).value=''});if(q('spzLookup'))q('spzLookup').textContent='';if(q('maintenancePreview')){q('maintenancePreview').style.display='none';q('maintenancePreview').innerHTML=''}if(q('techPreview')){q('techPreview').style.display='none';q('techPreview').innerHTML=''}
+}
+function openJobEdit(id){const j=jj(id);if(!j)return;q('editJobId').value=id;q('editJobDate').value=j.date||today();q('editJobTime').value=j.time||'08:00';q('editJobKm').value=j.km||0;q('editJobDuration').value=j.duration||2;q('editJobMechanic').value=j.mechanic||'Tomáš';q('editJobStatus').value=j.status||'Naplánováno';q('editJobRequest').value=j.request||'';q('jobEditModal').classList.add('show')}
+function closeJobEdit(){q('jobEditModal').classList.remove('show')}
+function saveJobEdit(){const j=jj(+q('editJobId').value);if(!j)return;Object.assign(j,{date:q('editJobDate').value,time:q('editJobTime').value,km:+q('editJobKm').value||0,duration:+q('editJobDuration').value||2,mechanic:q('editJobMechanic').value,status:q('editJobStatus').value,request:q('editJobRequest').value});const c=ca(j.carId);if(c.id&&j.km>+c.km)c.km=j.km;persist();closeJobEdit();openJobDetail(j.id)}
+function jobPartsHTML(j,c){if(!Array.isArray(j.parts))j.parts=[];const total=j.parts.reduce((a,p)=>a+(+p.qty||0)*(+p.price||0),0);return '<div class="card" style="margin-top:10px"><h3>📦 Díly na této zakázce</h3><div class="row"><label>Díl ze skladu<select id="jobStockSelect"><option value="">Vyber díl…</option>'+db.stock.filter(s=>s.qty>0).map(s=>'<option value="'+s.id+'">'+esc(s.name)+' · '+s.qty+' ks</option>').join('')+'</select></label><label>Počet<input id="jobStockQty" type="number" min="1" value="1"></label></div><button class="primary" style="width:100%;margin-top:8px" onclick="addStockPartToJob('+j.id+',+q(\'jobStockSelect\').value,+q(\'jobStockQty\').value)">＋ Přidat díl ze skladu</button>'+(j.parts.length?j.parts.map(p=>'<div class="partline"><div><b>'+esc(p.name)+'</b><br><span class="muted">'+p.qty+' ks · '+(p.price||0).toLocaleString('cs-CZ')+' Kč/ks</span></div><button onclick="removeJobPart('+j.id+','+p.id+')">↩️</button></div>').join(''):'<div class="muted" style="margin-top:8px">Zatím bez dílů.</div>')+'<div style="text-align:right;font-weight:850;margin-top:10px">Materiál orientačně: '+total.toLocaleString('cs-CZ')+' Kč</div></div>'}
+function addStockPartToJob(jobId,stockId,qty){const j=jj(jobId),s=stockById(stockId),n=+qty||1;if(!j||!s||n<1)return;if(s.qty<n)return alert('Na skladě není dost kusů.');if(!Array.isArray(j.parts))j.parts=[];j.parts.push({id:Date.now(),stockId:s.id,name:s.name,partNo:s.partNo,qty:n,price:s.sell||0});s.qty-=n;const c=ca(j.carId);ensureCarArrays(c);c.parts.push({id:Date.now()+1,stockId:s.id,name:s.name,partNo:s.partNo,qty:n,date:today(),price:s.sell||0,jobId:j.id});persist();openJobDetail(j.id)}
+function removeJobPart(jobId,partId){const j=jj(jobId);if(!j||!Array.isArray(j.parts))return;const p=j.parts.find(x=>x.id===partId);if(!p)return;const s=stockById(p.stockId);if(s)s.qty+=p.qty;const c=ca(j.carId);ensureCarArrays(c);c.parts=c.parts.filter(x=>!(x.jobId===j.id&&x.stockId===p.stockId&&x.qty===p.qty));j.parts=j.parts.filter(x=>x.id!==partId);persist();openJobDetail(jobId)}
+function openJobDetail(id){let j=jj(id),c=ca(j.carId),u=cu(j.customerId);if(!j)return;if(!Array.isArray(j.parts))j.parts=[];q('detailTitle').textContent='🔧 Zakázka č. '+j.id;q('detailBody').innerHTML='<div class="detail"><div class="card"><span class="muted">Vozidlo</span><div class="big">'+esc(c.spz||'')+'</div>'+esc((c.make||'')+' '+(c.model||''))+'</div><div class="card"><span class="muted">Zákazník</span><div class="big">'+esc(u.name||'')+'</div>'+esc(u.phone||'')+'</div><div class="card"><span class="muted">Termín</span><div class="big">'+esc(j.date||'')+'</div>'+esc(j.time||'')+' · '+(j.duration||0)+' h</div><div class="card"><span class="muted">Mechanik</span><div class="big">'+esc(j.mechanic||'')+'</div></div></div><div class="card" style="margin-top:10px"><h3>Stav</h3><select onchange="changeStatus('+id+',this.value)">'+['Naplánováno','Přijato','Diagnostika','Čeká na schválení','Opravuje se','Hotovo','Předáno'].map(s=>'<option '+(s===j.status?'selected':'')+'>'+s+'</option>').join('')+'</select></div><div class="card" style="margin-top:10px"><h3>Požadavek</h3><div style="white-space:pre-wrap">'+esc(j.request||'Bez popisu')+'</div></div>'+jobPartsHTML(j,c)+'<div class="sectionActions"><button onclick="openJobEdit('+id+')">✏️ Upravit zakázku</button><button onclick="openCar('+j.carId+')">🚗 Otevřít vozidlo</button><button onclick="printJob('+id+')">📄 Zakázkový list</button><button onclick="delJob('+id+')">🗑️ Smazat</button></div>';q('detail').classList.add('show')}
+
+</script><style>
+/* ServisPilot V12 */
+.v12work{margin:10px 0;padding:14px;border:1px solid #d8dee8;border-radius:16px;background:#f8fafc}.v12service{display:grid;grid-template-columns:28px 1fr 82px 105px;gap:7px;align-items:center;padding:8px 0;border-bottom:1px solid #e5e7eb}.v12service input[type=checkbox]{width:20px;height:20px;margin:0}.v12service input[type=number]{margin:0}.v12custom{display:grid;grid-template-columns:1fr 82px 44px;gap:7px;margin-top:8px}.v12total{font-weight:850;text-align:right;margin-top:10px;font-size:16px}.v12settings{display:grid;grid-template-columns:1fr 1fr;gap:10px}.v12line{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #edf0f3}.v12line:last-child{border-bottom:0}.v12muted{color:#64748b;font-size:12px}.v12danger{background:#fee2e2;color:#991b1b}.v12chip{display:inline-block;padding:5px 8px;border-radius:999px;background:#e0f2fe;color:#075985;font-size:11px;font-weight:800;margin:2px}@media(max-width:600px){.v12service{grid-template-columns:28px 1fr 72px 82px}.v12settings{grid-template-columns:1fr}.v12custom{grid-template-columns:1fr 72px 44px}}
+</style>
+<script>
+(function(){
+ const SERVICES=[['Motorový olej + olejový filtr',1],['Vzduchový filtr',0.5],['Kabinový / pylový filtr',0.5],['Palivový filtr',1],['Kontrola / oprava brzd',1.5],['Brzdová kapalina',1],['Klimatizace',1],['Svíčky',1],['DSG olej + filtr',1.5],['Haldex olej + servis',1],['Diagnostika',1],['Geometrie',1],['Pneuservis',1],['STK / příprava na STK',1]];
+ const S=window.__servispilotV12={services:[]};
+ function ensure(){db.settings=db.settings||{};db.settings.hourlyRate=Number(db.settings.hourlyRate||900);db.settings.companyName=db.settings.companyName||'ServisPilot';db.settings.companyIco=db.settings.companyIco||'';db.settings.companyDic=db.settings.companyDic||'';db.settings.companyAddress=db.settings.companyAddress||'';db.settings.invoiceSeq=Number(db.settings.invoiceSeq||1000);db.invoices=Array.isArray(db.invoices)?db.invoices:[];db.customers.forEach(u=>{u.vatPayer=!!u.vatPayer;u.taxId=u.taxId||''});db.jobs.forEach(j=>{if(!Array.isArray(j.services))j.services=[];if(!Array.isArray(j.customFields))j.customFields=[];if(j.hourlyRate==null)j.hourlyRate=db.settings.hourlyRate})}
+ function money(n){return Number(n||0).toLocaleString('cs-CZ')+' Kč'}
+ function servicesFor(j){if(Array.isArray(j.services)&&j.services.length)return j.services;return (j.request||'').split(/\n+/).map(x=>x.trim()).filter(Boolean).map(name=>({name,duration:1,selected:true}))}
+ function totals(j){const rate=Number(j.hourlyRate||db.settings.hourlyRate||0),arr=servicesFor(j),hours=arr.reduce((a,x)=>a+(Number(x.duration)||0),0),labor=hours*rate,parts=(j.parts||[]).reduce((a,p)=>a+(Number(p.qty)||0)*(Number(p.price)||0),0);return{rate,hours,labor,parts,total:labor+parts,estimate:(labor+parts)*1.1}}
+ function injectWork(){if(q('v12WorkPanel'))return;const req=q('request');if(!req)return;const p=document.createElement('div');p.id='v12WorkPanel';p.className='v12work';p.innerHTML='<h3>🧰 Co se na voze bude dělat</h3><div class="v12muted">Zaškrtni práce, nastav čas a případně přidej vlastní položku.</div><div id="v12Services"></div><div class="v12custom"><input id="v12CustomName" placeholder="Vlastní práce / položka"><input id="v12CustomHours" type="number" min="0.1" step="0.1" value="1"><button type="button" onclick="v12AddCustom()">＋</button></div><div id="v12WorkTotal" class="v12total"></div>';req.parentNode.insertBefore(p,req)}
+ function renderWork(){
+  injectWork();
+  const b=q('v12Services'); if(!b)return;
+  const m=new Map(S.services.map(x=>[x.name,x]));
+  let html='';
+  SERVICES.forEach((x,i)=>{
+    const a=m.get(x[0]);
+    const checked=a?'checked':'';
+    const dur=a?Number(a.duration):Number(x[1]);
+    html+='<div class="v12service"><input type="checkbox" '+checked+' onchange="v12Toggle('+i+',this.checked)"><span>'+esc(x[0])+'</span><input type="number" min="0.1" step="0.1" value="'+dur+'" onchange="v12Time('+i+',this.value)"><span class="v12muted">'+money(dur*(db.settings.hourlyRate||900))+'</span></div>';
+  });
+  S.services.filter(x=>x.custom).forEach((x,i)=>{
+    html+='<div class="v12service"><span>🛠️</span><span>'+esc(x.name)+'</span><input type="number" min="0.1" step="0.1" value="'+Number(x.duration||1)+'" onchange="v12CustomTime('+i+',this.value)"><button type="button" onclick="v12RemoveCustom('+i+')">🗑️</button></div>';
+  });
+  b.innerHTML=html;
+  const h=S.services.reduce((a,x)=>a+(Number(x.duration)||0),0);
+  q('v12WorkTotal').textContent='Práce: '+h.toFixed(1)+' h · '+money(h*(db.settings.hourlyRate||900))+' · orientačně +10 %: '+money(h*(db.settings.hourlyRate||900)*1.1);
+ }
+ window.v12Toggle=(i,on)=>{const x=SERVICES[i];if(on){if(!S.services.some(s=>s.name===x[0]))S.services.push({name:x[0],duration:x[1],selected:true})}else S.services=S.services.filter(s=>s.name!==x[0]);renderWork()};
+ window.v12Time=(i,v)=>{const x=SERVICES[i],a=S.services.find(s=>s.name===x[0]);if(a)a.duration=Math.max(.1,Number(v)||.1);else S.services.push({name:x[0],duration:Math.max(.1,Number(v)||.1),selected:true});renderWork()};
+ window.v12AddCustom=()=>{const n=(q('v12CustomName')?.value||'').trim(),h=Number(q('v12CustomHours')?.value)||1;if(!n)return;S.services.push({name:n,duration:h,selected:true,custom:true});q('v12CustomName').value='';q('v12CustomHours').value='1';renderWork()};
+ window.v12CustomTime=(idx,v)=>{const custom=S.services.filter(x=>x.custom)[idx];if(custom){custom.duration=Math.max(.1,Number(v)||.1);renderWork()}};
+ window.v12RemoveCustom=idx=>{const arr=S.services.filter(x=>x.custom);const target=arr[idx];S.services=S.services.filter(x=>x!==target);renderWork()};
+ function injectSettings(){if(q('v12SettingsModal'))return;const m=document.createElement('div');m.id='v12SettingsModal';m.className='modal';m.innerHTML='<div class="sheet"><div style="display:flex;justify-content:space-between;align-items:center"><h2>⚙️ Ceník a fakturace</h2><button onclick="v12CloseSettings()">✕</button></div><div class="v12settings"><label>Cena práce / hod. Kč<input id="v12Rate" type="number" min="0" step="50"></label><label>Název servisu<input id="v12Company"></label><label>IČO<input id="v12Ico"></label><label>DIČ<input id="v12Dic"></label></div><label>Adresa servisu<input id="v12Address"></label><div class="actions"><button onclick="v12CloseSettings()">Zrušit</button><button class="primary" onclick="v12SaveSettings()">Uložit</button></div></div>';document.body.appendChild(m)}
+ window.v12OpenSettings=()=>{ensure();q('v12Rate').value=db.settings.hourlyRate;q('v12Company').value=db.settings.companyName;q('v12Ico').value=db.settings.companyIco;q('v12Dic').value=db.settings.companyDic;q('v12Address').value=db.settings.companyAddress;q('v12SettingsModal').classList.add('show')};
+ window.v12CloseSettings=()=>q('v12SettingsModal').classList.remove('show');
+ window.v12SaveSettings=()=>{ensure();db.settings.hourlyRate=Number(q('v12Rate').value)||900;db.settings.companyName=q('v12Company').value.trim()||'ServisPilot';db.settings.companyIco=q('v12Ico').value.trim();db.settings.companyDic=q('v12Dic').value.trim();db.settings.companyAddress=q('v12Address').value.trim();persist();v12CloseSettings();renderWork()};
+ function injectButtons(){['#jobs .toolbar','#home .card:nth-of-type(2)'].forEach(sel=>{const p=document.querySelector(sel);if(p&&!p.querySelector('#v12SettingsBtn')){const b=document.createElement('button');b.id='v12SettingsBtn';b.textContent='⚙️ Ceník / fakturace';b.onclick=v12OpenSettings;b.style.marginTop='8px';p.appendChild(b)}})}
+ window.openJob=function(){ensure();resetForm();S.services=[];delete q('modal').dataset.editJob;injectWork();renderWork();q('modal').classList.add('show')};
+ window.openJobForCar=function(id){const c=ca(id),u=cu(c.customerId);openJob();setVal('spz',c.spz);lookupCarBySpz();setVal('customer',u.name);setVal('phone',u.phone);setVal('email',u.email);setVal('km',c.km||0);previewMaintenance();previewTechForJob()};
+ window.saveJob=function(){ensure();if(q('modal').dataset.editJob){const id=Number(q('modal').dataset.editJob),j=jj(id);if(j){j.services=S.services.map(x=>({...x}));j.duration=S.services.reduce((a,x)=>a+(Number(x.duration)||0),0)||2;j.request=S.services.map(x=>x.name).join('\n');j.date=q('date').value;j.time=q('time').value;j.km=Number(q('km').value)||0;j.mechanic=q('mechanic').value;j.status=q('status').value;const c=ca(j.carId);if(c.id&&j.km>Number(c.km||0))c.km=j.km;persist();delete q('modal').dataset.editJob;S.services=[];closeModal();openJobDetail(id);return}}
+  const spz=normSpz(q('spz').value),name=q('customer').value.trim();if(!name)return alert('Vyplň jméno zákazníka.');let u=db.customers.find(x=>x.phone&&x.phone===q('phone').value.trim())||db.customers.find(x=>(x.name||'').toLowerCase()===name.toLowerCase());if(!u){u={id:Date.now(),name,phone:q('phone').value.trim(),email:q('email').value.trim()};db.customers.push(u)}else{u.name=name;u.phone=q('phone').value.trim()||u.phone;u.email=q('email').value.trim()||u.email}
+  let c=carBySpz(spz);const carData={vin:q('vin').value.trim(),make:q('make').value.trim(),model:q('model').value.trim(),engine:q('engine').value.trim().toUpperCase(),power:q('power').value.trim(),ccm:q('ccm').value.trim(),year:q('year').value,fuel:q('fuel').value,km:Number(q('km').value)||0,customerId:u.id};if(!c){c={id:Date.now()+1,spz,...carData,parts:[],maintenanceRecords:[]};db.cars.push(c)}else{Object.assign(c,carData,{spz,customerId:u.id});ensureCarArrays(c)}
+  const services=S.services.length?S.services.map(x=>({...x})):(q('request').value||'').split(/\n+/).map(x=>x.trim()).filter(Boolean).map(name=>({name,duration:1,selected:true}));const request=services.map(x=>x.name).join('\n');const j={id:Date.now()+2,carId:c.id,customerId:u.id,date:q('date').value,time:q('time').value,duration:services.reduce((a,x)=>a+(Number(x.duration)||0),0)||Number(q('duration').value)||2,mechanic:q('mechanic').value,status:q('status').value,request,km:Number(q('km').value)||0,engineCode:q('engine').value.trim().toUpperCase(),parts:[],services,hourlyRate:db.settings.hourlyRate,customFields:[]};db.jobs.push(j);persist();resetForm();S.services=[];closeModal();openJobDetail(j.id)};
+ window.openJobEdit=function(id){const j=jj(id);if(!j)return;openJob();S.services=servicesFor(j).map(x=>({...x}));q('modal').dataset.editJob=id;setVal('spz',ca(j.carId).spz);lookupCarBySpz();setVal('customer',cu(j.customerId).name);setVal('phone',cu(j.customerId).phone);setVal('email',cu(j.customerId).email);q('date').value=j.date;q('time').value=j.time;q('km').value=j.km;q('mechanic').value=j.mechanic;q('status').value=j.status;q('request').value=j.request||'';renderWork()};
+ window.openCarEdit=function(id){const c=ca(id);if(!c.id)return;const t=getCarTech(c);q('carEditBody').innerHTML='<input type="hidden" id="editCarId" value="'+c.id+'"><div class="row"><label>SPZ<input id="editSpz" value="'+esc(c.spz)+'"></label><label>VIN<input id="editVin" value="'+esc(c.vin)+'"></label></div><div class="row"><label>Značka<input id="editMake" value="'+esc(c.make)+'"></label><label>Model<input id="editModel" value="'+esc(c.model)+'"></label></div><div class="row"><label>Kód motoru<input id="editEngine" value="'+esc(c.engine)+'"></label><label>Rok<input id="editYear" type="number" value="'+esc(c.year)+'"></label></div><div class="row"><label>Objem<input id="editCcm" value="'+esc(c.ccm)+'"></label><label>Výkon<input id="editPower" value="'+esc(c.power)+'"></label></div><div class="row"><label>KM<input id="editKm" type="number" value="'+esc(c.km||0)+'"></label><label>Palivo<select id="editFuel"><option '+(c.fuel==='Nafta'?'selected':'')+'>Nafta</option><option '+(c.fuel==='Benzín'?'selected':'')+'>Benzín</option><option '+(c.fuel==='Hybrid'?'selected':'')+'>Hybrid</option><option '+(c.fuel==='Elektro'?'selected':'')+'>Elektro</option><option '+(c.fuel==='LPG'?'selected':'')+'>LPG</option></select></label></div><h3>⚙️ Náplně a filtry</h3><div class="v12muted">Výchozí hodnoty se berou z kódu motoru a modelu/roku. Tady je můžeš přepsat jen pro toto auto.</div><div class="row"><label>Motorový olej l<input id="editOil" type="number" step=".1" value="'+esc(c.oilOverride??t.oilLiters??'')+'"></label><label>Specifikace<input id="editOilSpec" value="'+esc(c.oilSpecOverride??t.oilSpec??'')+'"></label></div><div class="row"><label>DSG olej l<input id="editDsg" type="number" step=".1" value="'+esc(c.dsgOverride??t.dsgLiters??'')+'"></label><label>Haldex olej l<input id="editHaldex" type="number" step=".1" value="'+esc(c.haldexOverride??t.haldexLiters??'')+'"></label></div><div class="row"><label>Olejový filtr<input id="editOilFilter" value="'+esc(c.oilFilterOverride??t.oilFilter??'')+'"></label><label>Vzduchový filtr<input id="editAirFilter" value="'+esc(c.airFilterOverride??t.airFilter??'')+'"></label></div><div class="row"><label>Kabinový filtr<input id="editCabinFilter" value="'+esc(c.cabinFilterOverride??t.cabinFilter??'')+'"></label><label>Palivový filtr<input id="editFuelFilter" value="'+esc(c.fuelFilterOverride??t.fuelFilter??'')+'"></label></div><div class="actions"><button onclick="closeCarEdit()">Zrušit</button><button class="primary" onclick="saveCarEdit()">Uložit změny</button></div>';q('carEditModal').classList.add('show')};
+ window.saveCarEdit=function(){const c=ca(Number(q('editCarId').value));if(!c.id)return;Object.assign(c,{spz:normSpz(q('editSpz').value),vin:q('editVin').value.trim(),make:q('editMake').value.trim(),model:q('editModel').value.trim(),engine:q('editEngine').value.trim().toUpperCase(),year:q('editYear').value,ccm:q('editCcm').value.trim(),power:q('editPower').value.trim(),km:Number(q('editKm').value)||0,fuel:q('editFuel').value,oilOverride:q('editOil').value===''?null:Number(q('editOil').value),oilSpecOverride:q('editOilSpec').value.trim(),dsgOverride:q('editDsg').value===''?null:Number(q('editDsg').value),haldexOverride:q('editHaldex').value===''?null:Number(q('editHaldex').value),oilFilterOverride:q('editOilFilter').value.trim(),airFilterOverride:q('editAirFilter').value.trim(),cabinFilterOverride:q('editCabinFilter').value.trim(),fuelFilterOverride:q('editFuelFilter').value.trim()});persist();closeCarEdit();openCar(c.id)};
+ window.openMaintenanceModal=function(carId,id){const c=ca(carId);if(!c.id)return;ensureCarArrays(c);const r=id?c.maintenanceRecords.find(x=>x.id===id):null;q('maintId').value=r?.id||'';q('maintCarId').value=carId;q('maintName').value=r?.name||'';q('maintDate').value=r?.date||today();q('maintKm').value=r?.km??c.km??0;q('maintNote').value=r?.note||'';q('maintenanceModal').classList.add('show')};
+ window.saveMaintenanceRecord=function(){const c=ca(Number(q('maintCarId').value));if(!c.id)return;ensureCarArrays(c);const id=Number(q('maintId').value)||Date.now(),r={id,name:q('maintName').value.trim(),date:q('maintDate').value,km:Number(q('maintKm').value)||0,note:q('maintNote').value.trim()};if(!r.name)return alert('Vyplň servisní položku.');const old=c.maintenanceRecords.find(x=>x.id===id);if(old)Object.assign(old,r);else c.maintenanceRecords.push(r);persist();closeMaintenanceModal();openCar(c.id)};
+ window.openCar=function(id){ensure();const c=ca(id);if(!c.id)return;ensureCarArrays(c);const u=cu(c.customerId),jobs=db.jobs.filter(j=>j.carId===id).sort((a,b)=>(b.date+b.time).localeCompare(a.date+a.time)),t=getCarTech(c),mh=c.maintenanceRecords.slice().sort((a,b)=>(b.date||'').localeCompare(a.date||''));const tech='<div class="card" style="margin-top:10px"><h3>⚙️ Technická data vozu</h3><div class="v12line"><span>Motorový olej</span><b>'+esc(t.oilLiters??'—')+' l</b></div><div class="v12line"><span>Specifikace</span><b>'+esc(t.oilSpec||'—')+'</b></div><div class="v12line"><span>Olejový filtr</span><b>'+esc(t.oilFilter||'—')+'</b></div><div class="v12line"><span>Vzduchový filtr</span><b>'+esc(t.airFilter||'—')+'</b></div><div class="v12line"><span>Kabinový filtr</span><b>'+esc(t.cabinFilter||'—')+'</b></div><div class="v12line"><span>Palivový filtr</span><b>'+esc(t.fuelFilter||'—')+'</b></div><div class="v12line"><span>DSG / Haldex</span><b>'+esc(t.dsgLiters??'—')+' / '+esc(t.haldexLiters??'—')+' l</b></div><div class="sectionActions"><button onclick="openCarEdit('+id+')">✏️ Upravit technická data</button><button onclick="show(\'tech\')">⚙️ Technická databáze</button></div></div>';const hist='<div class="card" style="margin-top:10px"><div style="display:flex;justify-content:space-between;align-items:center"><h3>🔧 Servisní historie</h3><button onclick="openMaintenanceModal('+id+')">＋ Přidat</button></div>'+(mh.length?mh.map(r=>'<div class="v12line"><span><b>'+esc(r.name)+'</b><br><span class="v12muted">'+esc(r.date)+' · '+(r.km||0)+' km'+(r.note?' · '+esc(r.note):'')+'</span></span><span><button onclick="openMaintenanceModal('+id+','+r.id+')">✏️</button> <button class="v12danger" onclick="deleteMaintenanceRecord('+id+','+r.id+')">🗑️</button></span></div>').join(''):'<span class="v12muted">Historie je prázdná.</span>')+'</div>';const parts='<div class="card" style="margin-top:10px"><h3>📦 Díly použité na voze</h3><div class="row"><label>Díl ze skladu<select id="carStockSelect"><option value="">Vyber díl…</option>'+db.stock.filter(s=>s.qty>0).map(s=>'<option value="'+s.id+'">'+esc(s.name)+' · '+s.qty+' ks</option>').join('')+'</select></label><label>Počet<input id="carStockQty" type="number" min="1" value="1"></label></div><button class="primary" style="width:100%;margin-top:8px" onclick="addStockPartToCar('+id+',+q(\'carStockSelect\').value,+q(\'carStockQty\').value)">＋ Přidat díl ze skladu</button>'+(c.parts.length?c.parts.map(p=>'<div class="v12line"><span><b>'+esc(p.name)+'</b><br><span class="v12muted">'+esc(p.partNo||'')+' · '+p.qty+' ks · '+esc(p.date||'')+'</span></span><button onclick="removeCarPart('+id+','+p.id+')">↩️</button></div>').join(''):'<span class="v12muted">Na voze zatím nejsou díly ze skladu.</span>')+'</div>';q('detailTitle').textContent='🚗 '+esc(c.make||'Vozidlo')+' '+esc(c.model||'')+' · '+esc(c.spz||'');q('detailBody').innerHTML='<div class="detail"><div class="card"><span class="muted">SPZ</span><div class="big">'+esc(c.spz)+'</div></div><div class="card"><span class="muted">VIN</span><div class="big" style="font-size:15px">'+esc(c.vin||'—')+'</div></div><div class="card"><span class="muted">Motor</span><div class="big" style="font-size:17px">'+esc(c.engine||'—')+'</div>'+esc(c.power||'')+'</div><div class="card"><span class="muted">KM</span><div class="big">'+(c.km||0)+'</div></div></div><div class="card" style="margin-top:10px"><h3>👤 Majitel</h3>'+esc(u.name||'')+'<br>'+esc(u.phone||'')+'<br>'+esc(u.email||'')+'</div><div class="sectionActions"><button onclick="openCarEdit('+id+')">✏️ Upravit vozidlo</button><button onclick="openJobForCar('+id+')">🔧 Nová zakázka</button></div>'+tech+hist+parts+'<div class="card" style="margin-top:10px">'+maintenanceHTML(id,c.km||0)+'</div><div class="card" style="margin-top:10px"><h3>📋 Zakázky</h3>'+(jobs.length?jobs.map(j=>'<div class="v12line"><span><b>'+esc(j.date||'')+' · '+esc(j.request||'Zakázka')+'</b><br><span class="v12muted">'+esc(j.mechanic||'')+' · '+(j.duration||0)+' h</span></span><button onclick="openJobDetail('+j.id+')">Otevřít</button></div>').join(''):'<span class="v12muted">Zatím bez zakázek.</span>')+'</div>';q('detail').classList.add('show')};
+ window.openJobDetail=function(id){ensure();const j=jj(id);if(!j)return;const c=ca(j.carId),u=cu(j.customerId),x=totals(j),arr=servicesFor(j);q('detailTitle').textContent='🔧 Zakázka č. '+j.id;q('detailBody').innerHTML='<div class="detail"><div class="card"><span class="muted">Vozidlo</span><div class="big">'+esc(c.spz||'')+'</div>'+esc((c.make||'')+' '+(c.model||''))+'</div><div class="card"><span class="muted">Zákazník</span><div class="big">'+esc(u.name||'')+'</div>'+esc(u.phone||'')+'</div><div class="card"><span class="muted">Termín</span><div class="big">'+esc(j.date||'')+'</div>'+esc(j.time||'')+' · '+(j.duration||0)+' h</div><div class="card"><span class="muted">Mechanik</span><div class="big">'+esc(j.mechanic||'')+'</div></div></div><div class="card" style="margin-top:10px"><h3>Stav</h3><select onchange="changeStatus('+id+',this.value)">'+['Naplánováno','Přijato','Diagnostika','Čeká na schválení','Opravuje se','Hotovo','Předáno'].map(s=>'<option '+(s===j.status?'selected':'')+'>'+s+'</option>').join('')+'</select></div><div class="card" style="margin-top:10px"><h3>🧰 Práce na voze</h3>'+(arr.length?arr.map(a=>'<div class="v12line"><span>'+esc(a.name)+'</span><b>'+Number(a.duration||0).toFixed(1)+' h</b></div>').join(''):'<span class="v12muted">Žádná práce.</span>')+'</div><div class="card" style="margin-top:10px"><h3>💰 Cena</h3><div class="v12line"><span>Čas práce</span><b>'+x.hours.toFixed(1)+' h</b></div><div class="v12line"><span>Sazba</span><b>'+money(x.rate)+'/h</b></div><div class="v12line"><span>Práce</span><b>'+money(x.labor)+'</b></div><div class="v12line"><span>Materiál</span><b>'+money(x.parts)+'</b></div><div class="v12line"><span>Celkem</span><b>'+money(x.total)+'</b></div><div class="v12line"><span>Orientačně +10 %</span><b>'+money(x.estimate)+'</b></div></div><div class="card" style="margin-top:10px"><h3>📝 Poznámka</h3><div style="white-space:pre-wrap">'+esc(j.request||'')+'</div></div>'+jobPartsHTML(j,c)+'<div class="sectionActions"><button onclick="openJobEdit('+id+')">✏️ Upravit práce / zakázku</button><button onclick="openCar('+j.carId+')">🚗 Vozidlo</button><button onclick="printJob('+id+')">📄 Zakázkový list</button><button onclick="printInvoice('+id+')">🧾 Faktura</button><button class="v12danger" onclick="delJob('+id+')">🗑️ Smazat</button></div>';q('detail').classList.add('show')};
+ window.printInvoice=function(id){ensure();const j=jj(id);if(!j)return;const c=ca(j.carId),u=cu(j.customerId),x=totals(j),no=++db.settings.invoiceSeq;const due=new Date();due.setDate(due.getDate()+14);const dueStr=due.toISOString().slice(0,10);db.invoices.push({id:Date.now(),number:no,jobId:id,date:today(),total:x.total});persist();const w=window.open('','_blank');if(!w)return;const parts=(j.parts||[]).map(p=>'<tr><td>'+esc(p.name)+'</td><td>'+p.qty+' ks</td><td>'+money((Number(p.qty)||0)*(Number(p.price)||0))+'</td></tr>').join('');w.document.write('<!doctype html><html lang="cs"><head><meta charset="utf-8"><title>Faktura '+no+'</title><style>@page{size:A4;margin:14mm}body{font-family:Arial,sans-serif;font-size:12px;color:#111}.head{display:flex;justify-content:space-between;border-bottom:2px solid #111;padding-bottom:12px}.title{font-size:25px;font-weight:800}.box{border:1px solid #111;margin-top:12px}.box h3{margin:0;padding:7px;background:#eee}.p{padding:9px}table{width:100%;border-collapse:collapse}td,th{padding:8px;border-bottom:1px solid #ddd;text-align:left}.total{font-size:18px;font-weight:800;text-align:right;padding:12px}</style></head><body><div class="head"><div><div class="title">FAKTURA</div>č. '+no+'</div><div><b>'+esc(db.settings.companyName)+'</b><br>'+esc(db.settings.companyAddress)+'<br>IČO: '+esc(db.settings.companyIco)+' · DIČ: '+esc(db.settings.companyDic)+'</div></div><div class="box"><h3>ODBĚRATEL</h3><div class="p"><b>'+esc(u.name||'')+'</b><br>'+esc(u.phone||'')+'<br>'+esc(u.email||'')+'</div></div><div class="box"><h3>VOZIDLO</h3><div class="p">'+esc(c.make)+' '+esc(c.model)+' · SPZ '+esc(c.spz)+' · VIN '+esc(c.vin)+' · KM '+esc(c.km||j.km)+'</div></div><div class="box"><h3>POLOŽKY</h3><table><tr><th>Práce / díl</th><th>Množství</th><th>Cena</th></tr><tr><td>Práce '+x.hours.toFixed(1)+' h × '+money(x.rate)+'</td><td>'+x.hours.toFixed(1)+' h</td><td>'+money(x.labor)+'</td></tr>'+parts+'</table><div class="total">CELKEM: '+money(x.total)+'</div></div><div style="margin-top:25px">Datum vystavení: '+today()+'<br>Splatnost: '+dueStr+'<br><br>Podpis: __________________________</div></body></html>');w.document.close();w.focus();setTimeout(()=>w.print(),250)};
+ function init(){ensure();injectWork();injectSettings();injectButtons();renderWork();renderCustomers();render()}
+ document.addEventListener('DOMContentLoaded',init);setTimeout(init,100);
+})();
+</script>
+</body></html>
